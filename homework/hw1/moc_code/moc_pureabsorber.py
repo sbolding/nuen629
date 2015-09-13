@@ -171,6 +171,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
         print ""
 
 
-
+    print "Final solution", psi
+    
 if __name__ == "__main__":
     main(10,pi/2,tol=2.06115362e-9)
