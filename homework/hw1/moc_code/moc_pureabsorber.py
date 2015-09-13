@@ -1,4 +1,5 @@
 import numpy as np
+import re
 from math import *
 from scipy.optimize import fsolve
 
@@ -50,7 +51,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
 
     #Pick direction
     theta = polar_ang
-    phi   = pi/4.
+    phi   = pi/4.2
     xcos =  sin(theta)*cos(phi)
     ycos =  sin(theta)*sin(phi)
 
@@ -81,14 +82,6 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             s_top   = (y_top  - y_prev)/ycos
             s_bot   = (y_bot - y_prev)/ycos
 
-        #Find the min s that is positive, this is the intersection with boundary
-        intersects = [s_left, s_right, s_top, s_bot]
-        s_min = min(i for i in intersects if i > 0 )
-        face_id = intersects.index(s_min)
-        face_map = ["left","right","top","bot"]
-        face = face_map[face_id]
-        print "THIS FACE", face
-
         #Roots of parametric equation for circle
         A = xcos**2 + ycos**2
         B = 2.*xcos*x_prev + 2.*ycos*y_prev
@@ -99,52 +92,28 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
         if (det > 0): #We hit the circle
 
             #Roots of quadratic eq
-            s1 = (-1.*B + sqrt(det))/(2.*A)
-            s2 = (-1.*B - sqrt(det))/(2.*A)
-
-            #If we were already in the circle, then one is positive and other is negative,
-            #Due to roundoff both may be positive
-            print "ROOTS OF CIRCLE: ", s1, s2
-
-            #check if one of the roots is zero
-            if entered_fuel_last_iter:
-
-                s_circ = max(s1,s2)
-
-                #Verify that circle distance is less than boundary distance
-                if s_circ > s_min:
-                    raise ValueError("Error in circle logic")
-
-                s_min  = s_circ
-                print "I WAS IN THE CIRCLE, LEAVING NOW", s_min
-                in_fuel = True
-                entered_fuel_last_iter = False
-
-            else: #no sign change
-                
-                if s1 < 0.0: #No hits, headed the wrong direction
-
-                    print "HEADED AWAY FROM CIRCLE"
-                    hit_boundary = True
-                    s_min = s_min
-
-                else: #May have just entering the fuel, both roots positive
-
-                    print "JUST HIT THE CIRCLE"
-                    s_min = min(s1,s2)
-                    print s_min
-                    entered_fuel_last_iter = True
+            s_circ1 = (-1.*B + sqrt(det))/(2.*A)
+            s_circ2 = (-1.*B - sqrt(det))/(2.*A)
 
         else: #We didnt hit the circle, so we must have left
 
-            print "NO CIRCLE HIT, HEADED TO BOUNDARY"
-            s_min = s_min
-            hit_boundary = True
-            
+            s_circ1 = -99
+            s_circ2 = -99
 
-        #Compute contribution to psi and to total mfp traveled
-        if in_fuel:
+        #Find the min s that is positive, this is the face we hit
+        intersects = [s_left, s_right, s_top, s_bot, s_circ1,s_circ2]
+        s_min = min(i for i in intersects if i > 0 )
+        face_id = intersects.index(s_min)
+        face_map = ["left","right","top","bot","circ1","circ2"]
+        face = face_map[face_id]
+        print "THIS FACE", face
 
+        #Check if center of path is in fuel, in this case we were in the fuel
+        r_cent = (x_prev + xcos*s_min*0.5)**2 + (y_prev + ycos*y_prev*0.5)**2
+        if (r_cent < radius*radius): #in the fuel:
+
+            print "THIS PATH WAS IN THE FUEL"
+                
             #Contribution to psi from this source is based on flux leaving fuel and how
             #many mfp it traveled to get to this point
             mfp_fuel = s_min*sigma_f
@@ -152,7 +121,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             n_mfp   += mfp_fuel
             in_fuel = False #we can't stay in fuel
 
-        else:
+        else: #just traveling in moderator
 
             n_mfp += s_min*sigma_m #We had to have been in moderator
 
@@ -161,15 +130,14 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             if debug_mode:
                 psi    += Q_mod*(1.-exp(-1.*smin*sigma_m))*exp(-1.*(n_mfp - smin*sigma_m))
 
-
         #Move to the new coordinates
-        s_min *= 1.+1.E-14                  #Add a small factor so we are on other side of the face
+        s_min *= 1.+1.E-13                  #Add a small factor so we are for sure on other side of the face
         x_prev = x_prev + xcos*s_min
         y_prev = y_prev + ycos*s_min
 
         print "I am now here", x_prev, y_prev
-        #If we left the boundary
-        if hit_boundary:
+        #Determine if we hit a boundary. Either we hit a circle or boundary
+        if not re.search("circ",face):
     
             #Move to opposite face
             if face == "left":
@@ -186,7 +154,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             hit_boundary = False
             print "I am now over here", x_prev, y_prev
 
-           #Check if we are in a corner, based on symmetry
+            #Check if we are in a corner, based on symmetry, requires attention
             if x_left == y_bot: #Check for symmetry
                 if abs(abs(x_prev) - abs(y_prev)) < 1.E-14*abs(x_left):
 
