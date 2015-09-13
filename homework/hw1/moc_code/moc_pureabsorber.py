@@ -23,15 +23,16 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
     radius  =  1.
 
     #cross sections
-    sigma_f = 0.1414*10
-    sigma_m = 0.08*10
+    sigma_f = 0.1414
+    sigma_m = 0.08
     Q_f_tot = 1.
-    Q_f     = Q_f_tot/(4.*pi)
-    Q_mod   = 0.0
+    q_f     = Q_f_tot/(4.*pi)
+    q_mod   = 0.0
 
-    debug_mode = False
+    debug_mode = True
     if debug_mode:
-        Q_mod = Q_f
+        sigma_m = sigma_f
+        q_mod = q_f
 
     #Pick the point of interest and trace upstream from it
     x_prev = 1.5
@@ -117,7 +118,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             #Contribution to psi from this source is based on flux leaving fuel and how
             #many mfp it traveled to get to this point
             mfp_fuel = s_min*sigma_f
-            psi     += Q_f*(1.-exp(-1.*mfp_fuel))*exp(-1.*n_mfp)
+            psi     += q_f/(sigma_f)*(1.-exp(-1.*mfp_fuel))*exp(-1.*n_mfp)
             n_mfp   += mfp_fuel
             in_fuel = False #we can't stay in fuel
 
@@ -128,10 +129,10 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             #For debugging we have a moderator source that we add in. It will contribute
             #however much is at previous point and how far it has had to attenuate
             if debug_mode:
-                psi    += Q_mod*(1.-exp(-1.*smin*sigma_m))*exp(-1.*(n_mfp - smin*sigma_m))
+                psi    += q_mod/(sigma_f)*(1.-exp(-1.*s_min*sigma_m))*exp(-1.*(n_mfp - s_min*sigma_m))
 
         #Move to the new coordinates
-        s_min *= 1.+1.E-13                  #Add a small factor so we are for sure on other side of the face
+        s_min *= 1.+5.E-14                  #Add a small factor so we are for sure on other side of the face
         x_prev = x_prev + xcos*s_min
         y_prev = y_prev + ycos*s_min
 
@@ -141,30 +142,33 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
     
             #Move to opposite face
             if face == "left":
-                x_prev = x_right
+                x_prev = x_right*(1-5.E-14)
             elif face == "right":
-                x_prev = x_left
+                x_prev = x_left*(1+5.E-14)
             elif face == "bot":
-                y_prev = y_top
+                y_prev = y_top*(1-5.E-14)
             elif face == "top":
-                y_prev = y_bot
+                y_prev = y_bot*(1-5.E-14)
             else:
                 raise ValueError("Something wrong in faces")
 
-            hit_boundary = False
+            hit_boundary = True
             print "I am now over here", x_prev, y_prev
 
             #Check if we are in a corner, based on symmetry, requires attention
             if x_left == y_bot: #Check for symmetry
-                if abs(abs(x_prev) - abs(y_prev)) < 1.E-14*abs(x_left):
+                if abs(abs(x_prev) - abs(y_prev)) < 1.E-13*abs(x_left):
 
                     print "WE HIT A CORNER"
                     
                     #flip the face we haven't flipped yet
                     if face == "left" or face == "right":
                         y_prev *= -1.
+                        y_prev = y_prev/abs(y_prev)*y_prev*(1.-5.E-14)
                     else:
                         x_prev *= -1.
+                        x_prev = x_prev/abs(x_prev)*x_prev*(1.-5.E-14)
+
 
                     print "and now over here", x_prev, y_prev
 
@@ -172,6 +176,10 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
 
 
     print "Final solution", psi
+    if debug_mode:
+        print "Desired solution: ", q_mod/sigma_f, q_mod, q_f
+        print "error: ", (q_mod/sigma_f - psi)
+        print "tol:   ", psi*tol
     
 if __name__ == "__main__":
-    main(10,pi/2,tol=2.06115362e-9)
+    main(10,pi/4,tol=2.06115362e-9)
