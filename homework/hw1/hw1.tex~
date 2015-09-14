@@ -254,7 +254,7 @@ $A=1$.  The final scattering kernel, for the case of $A=1$, is
 \begin{equation}\label{answer}
 \boxed{
 K(\mu_0,E'\rightarrow E) = \left\{\begin{matrix}
-2\mu_0\delta(E-f_E\left(\mu_c(\mu_0),E'\right)), & \mu_0\in[0,1] \\ 
+2\mu_0\,\delta(E-f_E\left(\mu_c(\mu_0),E'\right)), & \mu_0\in[0,1] \\ 
  0, & \text{otherwise}
 \end{matrix}\right. 
 }.
