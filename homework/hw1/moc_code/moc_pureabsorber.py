@@ -13,8 +13,8 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
     y_bot   = -0.63
     radius  =  0.41
 
-    x_start = 0.41
-    y_start = 0.41
+    x_start = 0.62999999
+    y_start = 0.62999999
 
     #Must be 'definitely' inside or algorithm will fail
     if abs(abs(x_start)-x_right) < 1.E-10 or abs(abs(y_start)-y_top) < 1.E-10:
@@ -48,7 +48,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
         xcos =  sin(theta)*cos(phi)
         ycos =  sin(theta)*sin(phi)
 
-        print "Tracing phi (Omega)", phi, xcos, ycos
+        print "Tracing phi (Omega) (max mfp)", phi, -1.*log(tol)
 
         #Num of mfp we've traveled, and angular flux contribution to this point
         psi = 0.0
@@ -116,9 +116,9 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
                 n_mfp   += mfp_fuel
 
                 #double check"
-                if face != "circ1":
-                    print face
-                    raise ValueError("I dont think I am actually in the fuel")
+                #if face != "circ1":
+                #    print face
+                #    raise ValueError("I dont think I am actually in the fuel")
 
             else: #just traveling in moderator
 
@@ -179,4 +179,4 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
 
     
 if __name__ == "__main__":
-    main(800,pi/2,tol=2.06115362e-13)
+    main(16000,pi/2.,tol=2.06115362e-13)
