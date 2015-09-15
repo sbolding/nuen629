@@ -13,8 +13,8 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
     y_bot   = -0.63
     radius  =  0.41
 
-    x_start = 0.6299999999
-    y_start = 0.6299999999
+    x_start = 0.41
+    y_start = 0.41
 
     #Must be 'definitely' inside or algorithm will fail
     if abs(abs(x_start)-x_right) < 1.E-10 or abs(abs(y_start)-y_top) < 1.E-10:
@@ -46,7 +46,7 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
         #Pick direction
         theta = polar_ang
         xcos =  sin(theta)*cos(phi)
-        ycos =  sin(theta)*sqrt(1-cos(phi)*cos(phi))
+        ycos =  sin(theta)*sin(phi)
 
         print "Tracing phi (Omega)", phi, xcos, ycos
 
@@ -106,8 +106,8 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
             face = face_map[face_id]
 
             #Check if center of path is in fuel, in this case we were in the fuel
-            r_cent = (x_prev + xcos*s_min*0.5)**2 + (y_prev + ycos*y_prev*0.5)**2
-            if (r_cent < radius*radius): #in the fuel:
+            r_cent = sqrt((x_prev + xcos*s_min*0.5)**2 + (y_prev + ycos*s_min*0.5)**2)
+            if (r_cent < radius): #in the fuel:
 
                 #Contribution to psi from this source is based on flux leaving fuel and how
                 #many mfp it traveled to get to this point
@@ -115,7 +115,10 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
                 psi     += q_f/(sigma_f)*(1.-exp(-1.*mfp_fuel))*exp(-1.*n_mfp)
                 n_mfp   += mfp_fuel
 
- #               print "I am in the fuel"
+                #double check"
+                if face != "circ1":
+                    print face
+                    raise ValueError("I dont think I am actually in the fuel")
 
             else: #just traveling in moderator
 
@@ -125,8 +128,6 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
                 #however much is at previous point and how far it has had to attenuate
                 if debug_mode:
                     psi    += q_mod/(sigma_f)*(1.-exp(-1.*s_min*sigma_m))*exp(-1.*(n_mfp - s_min*sigma_m))
-
-#                print "I am in the moderator"
 
             #Move to the new coordinates
             x_prev = x_prev + xcos*s_min
@@ -151,8 +152,6 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
                 if x_left == y_bot: #Check for symmetry
                     if abs(abs(x_prev) - abs(y_prev)) < 1.E-13*abs(x_left):
 
- #                       print "HIT A CORNER"
-
                         #flip the face we haven't flipped yet
                         if face == "left" or face == "right":
                             y_prev *= -1.
@@ -160,8 +159,6 @@ def main(n_azimuth, polar_ang, tol=1.e-12):
                             x_prev *= -1.
 
 
-#            print "I ended up here", x_prev, y_prev, "\n"
-    
         #Done tracing for this phi
         if debug_mode:
             print "Desired solution: ", q_mod/sigma_f, q_mod, q_f
