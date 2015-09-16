@@ -43,6 +43,8 @@
 \usepackage{algpseudocode,algorithm}
 \usepackage{setspace}
 
+\newcommand{\ihat}{\ensuremath{\hat{\textbf{\i}}}}
+\newcommand{\jhat}{\ensuremath{\hat{\textbf{\j}}}}
 \newcommand{\lline}{\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -294,6 +296,80 @@ are more likely to scatter to 1 eV.
 
 
 \end{thebibliography}
+
+\begin{problem}{3}
+The problem details are given on the second page.
+\end{problem}
+
+\begin{solution}
+
+\subsubsection*{Description of code}
+
+The angular flux $\psi$ is computed by tracing characteristics as discussed in class.  To
+compute points of intersection, the ray and surfaces of intersection are written in
+parametric form. The position of a particle in the projected $x-y$ plane is denoted
+$\mathbf{r} = x\ihat +
+y\jhat$. Since we want to trace upstream, the parametric equation for the particle
+position is given by 
+\begin{equation}
+    \mathbf{r} = (x_{i-1}-\Omega_xs)\ihat + (y_{i-1} - \Omega_ys)\jhat
+\end{equation}
+where $\mathbf{r}_{i-1}$ is the previous location, $s$ is a parameter that corresponds
+to the signed distance the particle has traveled, and
+\begin{align}
+    \Omega_x =& \sin(\theta)\cos(\phi) \\
+    \Omega_y =& \sin(\theta)\sin(\phi).
+\end{align}
+The parametric equation for each of the surfaces in the problem as a function of $x$ and
+$y$ are given in Table~\ref{surfs}.  These equations are then evaluated with
+$x=x_{i-1}-\Omega_xs$ and $y=y_{i-1}-\Omega_ys$ and solved for $s$ algebraically.   The smallest positive value of
+$s$ from each equation, excluding surfaces where a solution does not exist,
+corresponds to the next point of intersection.  If we were already at a surface, then
+that solution will give $s=0$.  Care is taken to exclude this solution, accounting
+for potential roundoff.
+\begin{table}[h]
+    \centering
+    \caption{Parametric equations for surfaces in problem.\label{surfs}}
+    \begin{tabular}{|c|c|c|} \hline
+    Surface & $f(x,y)=0$ \\ \hline
+    Fuel    & $x^2 + y^2 - R_{\text{fuel}}^2=0$ \\
+    Left Boundary & $x - x_{\min}=0$ \\
+    Right Boundary & $x - x_{\max}=0$ \\ 
+    Bottom Boundary & $y - y_{\min}=0$ \\
+        Top Boundary & $y - y_{\max}=0$ \\ \hline
+    \end{tabular}
+\end{table}
+
+The particle is moved to the new location, and the number of mean free paths 
+travelled $\tau_i=s_i\Sigma_{t}(x,y)$ along the $i$-th path is computed. The total number of MFP
+traveled up to the latest point $s_i$ is accumulated as
+$\tau_{\text{tot},i}=\sum_{k=1}^i \tau_k$. Because the transport equation is linear, we can consider the
+contribution from each fuel element to the angular flux separately. If the $i$-th path
+traced to point $\mathbf{r}_i$ was across a fuel element, then a contribution is made
+to the flux.  If the path of length $s_i$ crossed the $j$-th fuel element, the contribution to the flux from that fuel element is
+computed as
+\begin{equation}
+    \psi_j =
+    \frac{Qe^{-\tau_{\text{tot},i-1}}}{4\pi\Sigma_{t,F}}\left(1-e^{-\Sigma_{t,F}s_i}\right)
+\end{equation}
+where $\tau_{\text{tot},i-1}$ does not include attenuation across the fuel because
+that attenuation was accounted for in solution for the term in parenthesis. The
+particle track is then continued from this point until.  The final solution for $\psi$, at
+the location and direction of interest, will be 
+\begin{equation}
+
+\end{equation}
+
+Finally, if the particle had hit a boundary, the corresponding coordinate is
+translated to the opposing boundary,
+taking care to handle roundoff issues and corners. For example, if the right boundary is hit at
+point $\mathbf{r}=x_{\max}\ihat+y_1\jhat$, the particle is moved to $\mathbf{r} =
+x_{\min}\ihat + y_1\jhat$.  The process outlined above is repeated for all directions
+$\Omega$ and positions of interest.
+
+
+\end{solution}
+
 
 \end{document}
 
