@@ -237,7 +237,8 @@ is, for $A>1$
 K(\mu_0,E'\rightarrow E) = \left\{\begin{matrix} \displaystyle
 \left[\frac{\mu_0}{A} + \frac{1 - \frac{1}{A^2}(1 -
 2\mu_0^2)}{2\sqrt{1 - \frac{1}{A^2}(1 -
-\mu_0^2)}}\right]{\delta(E-f_E\left(\mu_c(\mu_0),E'\right))}, & \mu_0\in[-1,1] \\ 
+\mu_0^2)}}\right]{\delta(E-f_E\left(\mu_c(\mu_0),E'\right))}, &
+\mu_0\in[-1,1]\times E\in[\alpha E',E'] \\ 
  0, & \text{otherwise}
 \end{matrix}\right. 
 }.
@@ -254,13 +255,15 @@ $A=1$.  The final scattering kernel, for the case of $A=1$, is
 \begin{equation}\label{answer}
 \boxed{
 K(\mu_0,E'\rightarrow E) = \left\{\begin{matrix}
-2\mu_0\,\delta(E-f_E\left(\mu_c(\mu_0),E'\right)), & \mu_0\in[0,1] \\ 
+    2\mu_0\,\delta(E-f_E\left(\mu_c(\mu_0),E'\right)), & \mu_0\in[0,1],\;
+    E\in[0,E'] \\ 
  0, & \text{otherwise}
 \end{matrix}\right. 
 }.
 \end{equation}
-which is a PDF normalized over $\mu_0$ and $E$. The support of $E$ is implicitly
-defined by the value of $E'$ and the support of $\mu_0$.
+which is a PDF normalized over $\mu_0$ and $E$. It is noted the support of $E$ is implicitly
+defined by the value of $E'$ and the support of $\mu_0$, and the units of the delta
+function are per unit energy.
 
 \subsubsection*{Plots for A=1}
 
@@ -280,7 +283,7 @@ kernel is a joint PDF in $E$ and $\mu_0$ (for scattering into $\d E$ about $E$ a
 Thus, performing the integration for a particular $E'$ gives
 \begin{equation}
     P(\mu_0,0\leq E\leq E_{\max};E'=E_i) = \int\limits_0^{E_{\max}}\!\d E \;2\mu_0
-    \delta(E-f_E(\mu_0,E'))
+    \delta(E-f_E(\mu_0,E_i))
 \end{equation}
 The delta function argument is now only zero for values of $\mu_0$ and $E'$ that
 satisfy $0\leq E \leq E_{\max}$; the integration essentially restricts the support of
@@ -292,28 +295,32 @@ $\mu_0$.  So the desired distribution becomes, using Eq.~\eqref{muhydro},
 Physically, this result suggests that if $E'$ is too much larger than $E_{\max}$, it
 cannot undergo a small deflection scatter and achieve an energy below $E_{\max}$.
 
-A plot of $P(\mu_0,0\leq E \leq 1\text{ eV})$ vs $\mu_0$ and vs $E$ are given below.
-Plots are shown for the limiting cases of $E'=10 MeV$ and $E'=0.05 MeV$.  The shape of the
+A plot of $P(\mu_0,0\leq E \leq 1\text{ eV})$ vs $\mu_0$ and vs $E(\mu_0)$ are given below.
+Plots are shown for the limiting cases of $E'=10$ MeV and $E'=0.05$ MeV.  The shape of the
 distribution in $\mu_0$ is linear for all energies, however the range of the
-distribution differs.  The plot versus energy demonstrates
-that the lower energy neutrons are more likely to scatter below 1 eV, as expected
+distribution differs (the scales are different on figures).  The magnitudes of the plots versus energy demonstrate
+that neutrons with a lower $E'$ are more likely to scatter below 1 eV, as expected
 \begin{figure}[hb]
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{scat_kernel_05.pdf}
-    \caption{$E'=0.05$ MeV}
+    \caption{$P(\mu_0)$ vs $\mu_0$}
 \end{subfigure}
     \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{scat_kernel_E_05.pdf}
-    \caption{$E'=0.05$ MeV}
+    \caption{$P(\mu_0)$ vs $E$}
 \end{subfigure}
+    \caption{Angular ditributions for $E'=0.05$ MeV}
+\end{figure}
+\begin{figure}
 \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{scat_kernel_10.pdf}
-    \caption{$E'=10$ MeV}
+    \caption{$P(\mu_0)$ vs $\mu_0$}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{scat_kernel_E_10.pdf}
-    \caption{$E'=10$ MeV}
+    \caption{$P(\mu_0)$ vs $E$}
 \end{subfigure}
+    \caption{Angular distributions for $E'=10$ MeV}
 \end{figure}
 
  
@@ -385,7 +392,7 @@ contribution from each fuel element to the angular flux separately. If the $i$-t
 traced to point $\mathbf{r}_i$ was across a fuel element, then a contribution is made
 to the flux.  If the path of length $s_i$ crossed the $j$-th fuel element, the contribution to the flux from that fuel element is
 computed as
-\begin{equation}
+\begin{equation}\label{psij}
     \psi_j =
     \frac{Qe^{-\tau_{\text{tot},i-1}}}{4\pi\Sigma_{t,F}}\left(1-e^{-\Sigma_{t,F}s_i}\right)
 \end{equation}
@@ -412,9 +419,37 @@ $\phi\in[0,2\pi)$, for the polar angle and position of interest.
 \clearpage
 \subsubsection*{Results}
 
-
 To verify the code works, the algorithm was modified to handle a source in the
-moderator, and the cross sections were set to uniform values.
+moderator by evaluating Eq.~\eqref{psij} at every point, with $Q$ and $\Sigma_t$ the
+same in all regions of the problem.  This was found to produce the expected answer of
+$\psi = Q/4\pi\Sigma_t$ for all angles and positions tested.  It is noted that a
+bug was found later after running this test, so this is not the most rigorous
+verification test. 
+
+Figures are given below for each of the desired points and directions
+The results were found to have physically expected values. Comparing the plots at
+$\theta=\pi/2$ and $\theta=\pi/8$, the latter results are more stretched with
+slightly higher peaks and lower troughs.  This is expected as the fuel element will
+appear more elliptic to the point of interest.  For the case of (0.63,0.63), symmetry
+in the 4 quadrants appeared as expected. The largest values of
+the flux, with the same magnitude, were found at $\phi=\pi/4,3\pi/4,5\pi/4$, and
+$7\pi/4$; these are the points where the rays cross the entirety of the fuel
+circumference.  The values of 0 at factors of $\pi/2$ were also seen as expected. This is
+the only angle where no fuel tracks to the spatial location. At slightly different angles, a fuel pin is
+hit at some point due to the limited attenuation by the moderator. In the other
+plots, the expected relative magnitudes of the flux in the different quadrants were
+seen as expected.  For instance, at (0.41,0.41), in $[0,\pi/2]$ there is a
+similar shape as from $[\pi,3\pi/2]$, but in larger magnitude. The extra edges near
+$0$ and $\pi/2$ occur because the ray sees most of the next fuel element past the one
+it is nearest to, however this does not occur in $[\pi,3\pi/2]$.
+As an additional verification, the code was compared against other students' codes who developed
+algorithms independently and were found to agree.  Although this is not proof the
+solution method is correct, it indicates that the code is implemented as intended.
+
+It was found that at 8000 values of $\phi$ there was no visible difference in the
+results.  A plot of one case for 8000 and 800 directions can be seen below in
+Fig.~\ref{8000}. There are still a few points that are not picked up at 800
+directions.  
 
 \begin{figure}
     \begin{subfigure}{0.5\textwidth}
@@ -440,7 +475,7 @@ moderator, and the cross sections were set to uniform values.
 \includegraphics[width=1.0\textwidth]{r4163pi8.pdf}
 \caption{$\theta=\pi/8$}
     \end{subfigure}
-    \caption{Angular flux results at $x=0.41$ cm $y=0.63$ cm for 8000 azimuthal angles.}
+    \caption{Angular flux results at $x=0.63$ cm $y=0.41$ cm for 8000 azimuthal angles.}
 \end{figure}
 \begin{figure}
     \begin{subfigure}{0.5\textwidth}
@@ -453,15 +488,25 @@ moderator, and the cross sections were set to uniform values.
 \includegraphics[width=1.0\textwidth]{r4141pi8.pdf}
 \caption{$\theta=\pi/8$}
     \end{subfigure}
-    \caption{Angular flux results at $x=0.63$ cm $y=0.63$ cm for 8000 azimuthal angles.}
+    \caption{Angular flux results at $x=0.41$ cm $y=0.41$ cm for 8000 azimuthal angles.}
 \end{figure}
 
-In addition, the code was checked against other students codes who developed
-algorithms independently and were found to agree.  Although this is not proof the
-solution method is correct, it indicates that both students likely implemented the
-algorithm correctly.
 
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r4163pi8.pdf}
+\caption{8000 azimuthal angles}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{800.pdf}
+\caption{800 azimuthal angles.}
+    \end{subfigure}
+    \caption{\label{8000}Angular flux results at $\theta=\pi/8$, $x=0.63$ cm, and $y=0.41$ cm.}
+\end{figure}
 
+\clearpage
 \lstinputlisting[basicstyle=\scriptsize]{moc_code/moc_pureabsorber.py}
 
 \end{solution}
