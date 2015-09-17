@@ -21,13 +21,11 @@
 
 
 
-\lstset{language=Matlab,
-   keywords={break,case,catch,continue,else,elseif,end,for,function,
-      global,if,otherwise,persistent,return,switch,try,while},
+\lstset{language=python,
    basicstyle=\ttfamily,
    keywordstyle=\color{blue},
-   commentstyle=\color{red},
-   stringstyle=\color{dkgreen},
+   commentstyle=\color{dkgreen},
+   stringstyle=\color{red},
    numbers=left,
    numberstyle=\tiny\color{gray},
    stepnumber=1,
@@ -164,7 +162,7 @@ we define the scattering cross section in an equivalent form
  where $P(\mu_0)$ is a PDF for $\mu_0$ given a certain value of $E'$, $f_E$ is
  defined as
  \begin{equation}
-  f(\mu_0,E') = \frac{E'}{2}\left((1+\alpha) + (1-\alpha)\mu_c\right),
+  f_E(\mu_C,E') = \frac{E'}{2}\left((1+\alpha) + (1-\alpha)\mu_c\right),
  \end{equation}
  and $\mu_c$ as a function of $\mu_0$ will be derived later in Eq.~\eqref{eq:muc}. The scattering kernel is defined as
  \begin{equation}
@@ -261,19 +259,40 @@ K(\mu_0,E'\rightarrow E) = \left\{\begin{matrix}
 \end{matrix}\right. 
 }.
 \end{equation}
-which is PDF normalized over $\mu_0$ and $E$.
+which is a PDF normalized over $\mu_0$ and $E$. The support of $E$ is implicitly
+defined by the value of $E'$ and the support of $\mu_0$.
 
 \subsubsection*{Plots for A=1}
 
-To plot in terms of energy, we evaluate Eq.~\eqref{eq:E} at $A=1$, giving
+To plot the desired distributions, we need to know the equivalent $\mu_0$
+corresponding to a given $E$ and $E'$.  Evaluation of Eq.~\eqref{eq:E} at $A=1$ gives
 \begin{equation}
     \frac{E}{E'} = \frac{1+\mu_c}{2}.
 \end{equation}
 Then, using Eq.~\eqref{eq:mu0}, $\mu_0$ in terms of $E$ and $E'$ is 
-\begin{equation}
+\begin{equation}\label{muhydro}
     \mu_0 = \sqrt{\frac{E}{E'}}.
 \end{equation}
-A plot of $P(\mu_0)$ vs $\mu_0$ and $P(\mu(E',E))$ vs $E'$ are given below.  The
+For a given $E'=E_i$, we can get the distribution in angle $P(\mu_0)$ by integrating the
+kernel over the range of desired outgoing energies $E\in[0,E_{\max}]$. The
+kernel is a joint PDF in $E$ and $\mu_0$ (for scattering into $\d E$ about $E$ and $\d
+\mu_0$ about $\mu_0$), whereas $E'$, as we have written it, is just a parameter of the distribution.
+Thus, performing the integration, for a particular $E'$, gives
+\begin{equation}
+    P(\mu_0,0\leq E\leq E_{\min};E'=E_i) = \int_0^{E_{\min}}\!\d E 2\mu_0 \delta(E-f_E(E,E'))
+\end{equation}
+The delta function argument is now only zero for values of $\mu_0$ and $E'$ that
+satisfy $0\leq E< \leq E_{\min}$, thus it limits the support of $\mu_0$.  So the PDF becomes, using Eq.~\eqref{muhydro},
+\begin{equation}
+    P(\mu_0,0\leq E\leq E_{\min};E'=E_i) = 2\mu_0,\quad 0\leq \mu_0 \leq
+    \sqrt{\frac{E_{\min}}{E'}}.
+\end{equation}
+Physically, if $E'$ is too much larger than $E$, it cannot undergo a scatter at low angles and
+lose energy to $E$.
+
+A plot of $P(\mu_0,0\leq E \leq 1\text{ eV})$ vs $\mu_0$ and vs $E'$ are given below
+for the cases of $E'=10 MeV$ and $E'=0.05 MeV$.  Essentially, the plot is the same
+for .  The
 values of $E'$ range between
 $0.05$ MeV to $10$ MeV, with $E$ fixed at 1 eV.  As expected, lower energy neutrons
 are more likely to scatter to 1 eV.
@@ -296,7 +315,7 @@ are more likely to scatter to 1 eV.
 
 
 \end{thebibliography}
-
+\clearpage
 \begin{problem}{3}
 The problem details are given on the second page.
 \end{problem}
@@ -315,17 +334,18 @@ position is given by
     \mathbf{r} = (x_{i-1}-\Omega_xs)\ihat + (y_{i-1} - \Omega_ys)\jhat
 \end{equation}
 where $\mathbf{r}_{i-1}$ is the previous location, $s$ is a parameter that corresponds
-to the signed distance the particle has traveled, and
+to the signed distance the ray has traversed, and
 \begin{align}
     \Omega_x =& \sin(\theta)\cos(\phi) \\
     \Omega_y =& \sin(\theta)\sin(\phi).
 \end{align}
 The parametric equation for each of the surfaces in the problem as a function of $x$ and
 $y$ are given in Table~\ref{surfs}.  These equations are then evaluated with
-$x=x_{i-1}-\Omega_xs$ and $y=y_{i-1}-\Omega_ys$ and solved for $s$ algebraically.   The smallest positive value of
-$s$ from each equation, excluding surfaces where a solution does not exist,
-corresponds to the next point of intersection.  If we were already at a surface, then
-that solution will give $s=0$.  Care is taken to exclude this solution, accounting
+$x=x_{i-1}-\Omega_xs$ and $y=y_{i-1}-\Omega_ys$ and solved for $s$ algebraically.
+This produces a collection of values $\{s_m\}$, where $s_m$ represent the signed
+distance to the $m$-th surface (excluding surfaces where a solution does not exist).
+The smallest positive value of $s_m$ corresponds to the next point of intersection.  If we were already at a surface, then
+that equation will give $s_m=0$.  Care is taken to exclude this solution, accounting
 for potential roundoff.
 \begin{table}[h]
     \centering
@@ -340,10 +360,12 @@ for potential roundoff.
     \end{tabular}
 \end{table}
 
-The particle is moved to the new location, and the number of mean free paths 
-travelled $\tau_i=s_i\Sigma_{t}(x,y)$ along the $i$-th path is computed. The total number of MFP
+The current position of the ray is updated, and the number of mean free paths
+traveled $\tau_i=s_i\Sigma_{t}(x,y)$ along the $i$-th path is computed. The total number of MFP
 traveled up to the latest point $s_i$ is accumulated as
-$\tau_{\text{tot},i}=\sum_{k=1}^i \tau_k$. Because the transport equation is linear, we can consider the
+$\tau_{\text{tot},i}=\sum_{k=1}^i \tau_k$. 
+
+Because the transport equation is linear, we can consider the
 contribution from each fuel element to the angular flux separately. If the $i$-th path
 traced to point $\mathbf{r}_i$ was across a fuel element, then a contribution is made
 to the flux.  If the path of length $s_i$ crossed the $j$-th fuel element, the contribution to the flux from that fuel element is
@@ -352,21 +374,80 @@ computed as
     \psi_j =
     \frac{Qe^{-\tau_{\text{tot},i-1}}}{4\pi\Sigma_{t,F}}\left(1-e^{-\Sigma_{t,F}s_i}\right)
 \end{equation}
-where $\tau_{\text{tot},i-1}$ does not include attenuation across the fuel because
-that attenuation was accounted for in solution for the term in parenthesis. The
-particle track is then continued from this point until.  The final solution for $\psi$, at
+where $\tau_{\text{tot},i-1}$ does not include $s_i\Sigma_{t,F}$ because
+that attenuation was accounted for in derivation of the term in parenthesis. The
+ray tracing is then continued from this point until $\tau_{\text{tot,i}} >
+\tau_{\max}$. 
+
+Finally, after computing potential contributions to $\psi$, if the ray hits a boundary, the corresponding coordinate is
+translated to the opposing boundary.  For example, if the right boundary is hit at
+point $\mathbf{r}=x_{\max}\ihat+y_1\jhat$, the new position is $\mathbf{r} =
+x_{\min}\ihat + y_1\jhat$. Tracing then continues as before, by computing new
+distances to intersections, with $\hat{\Omega}$ unchanged.  Care is taken to handle roundoff issues and corners.  
+
+The final solution for $\psi$, at
 the location and direction of interest, will be 
 \begin{equation}
-
+    \psi(\mathbf{r},\hat{\Omega}) = \sum_{j}^{N_{\text{fuel}}} \psi_j
 \end{equation}
+where $N_{\text{fuel}}$ is the total number of fuel elements crossed during the ray
+tracing.  The process outlined above is repeated for all equally spaced
+$\phi\in[0,2\pi)$, for the polar angle and position of interest.
 
-Finally, if the particle had hit a boundary, the corresponding coordinate is
-translated to the opposing boundary,
-taking care to handle roundoff issues and corners. For example, if the right boundary is hit at
-point $\mathbf{r}=x_{\max}\ihat+y_1\jhat$, the particle is moved to $\mathbf{r} =
-x_{\min}\ihat + y_1\jhat$.  The process outlined above is repeated for all directions
-$\Omega$ and positions of interest.
+\clearpage
+\subsubsection*{Results}
 
+
+To verify the code works, the algorithm was modified to handle a source in the
+moderator, and the cross sections were set to uniform values.
+
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r6363pi2.pdf}
+\caption{$\theta=\pi/2$}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r6363pi8.pdf}
+\caption{$\theta=\pi/8$}
+    \end{subfigure}
+    \caption{Angular flux results at $x=0.63$ cm $y=0.63$ cm for 8000 azimuthal angles.}
+\end{figure}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r4163pi2.pdf}
+\caption{$\theta=\pi/2$}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r4163pi8.pdf}
+\caption{$\theta=\pi/8$}
+    \end{subfigure}
+    \caption{Angular flux results at $x=0.41$ cm $y=0.63$ cm for 8000 azimuthal angles.}
+\end{figure}
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r4141pi2.pdf}
+\caption{$\theta=\pi/2$}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=1.0\textwidth]{r4141pi8.pdf}
+\caption{$\theta=\pi/8$}
+    \end{subfigure}
+    \caption{Angular flux results at $x=0.63$ cm $y=0.63$ cm for 8000 azimuthal angles.}
+\end{figure}
+
+In addition, the code was checked against other students codes who developed
+algorithms independently and were found to agree.  Although this is not proof the
+solution method is correct, it indicates that both students likely implemented the
+algorithm correctly.
+
+
+\lstinputlisting[basicstyle=\scriptsize]{moc_code/moc_pureabsorber.py}
 
 \end{solution}
 

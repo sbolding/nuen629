@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.17)  16 SEP 2015 08:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  16 SEP 2015 20:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -335,18 +335,18 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 ) (./hw1.aux)
 \openout1 = `hw1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -446,11 +446,11 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 89.
+LaTeX Font Info:    Try loading font information for U+msa on input line 87.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 89.
+LaTeX Font Info:    Try loading font information for U+msb on input line 87.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -461,36 +461,36 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf>
-Package pdftex.def Info: Homework1.pdf used on input line 93.
+Package pdftex.def Info: Homework1.pdf used on input line 91.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 File: Homework1.pdf Graphic file (type pdf)
  <use Homework1.pdf>
-Package pdftex.def Info: Homework1.pdf used on input line 93.
+Package pdftex.def Info: Homework1.pdf used on input line 91.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
 <Homework1.pdf, id=11, page=1, 614.295pt x 794.97pt>
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 1>
-Package pdftex.def Info: Homework1.pdf, page1 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page1 used on input line 91.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 File: Homework1.pdf Graphic file (type pdf)
  <use Homework1.pdf, page 1>
-Package pdftex.def Info: Homework1.pdf, page1 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page1 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 1>
-Package pdftex.def Info: Homework1.pdf, page1 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page1 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
  <use Homework1.pdf, page 1>
-Package pdftex.def Info: Homework1.pdf, page1 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page1 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 1>
-Package pdftex.def Info: Homework1.pdf, page1 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page1 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
  [2
 
@@ -499,39 +499,39 @@ Package pdftex.def Info: Homework1.pdf, page1 used on input line 93.
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 2>
-Package pdftex.def Info: Homework1.pdf, page2 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page2 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
  <use Homework1.pdf, page 2>
-Package pdftex.def Info: Homework1.pdf, page2 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page2 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 2>
-Package pdftex.def Info: Homework1.pdf, page2 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page2 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
  [3 <./Homework1.pdf>]
 <Homework1.pdf, id=134, page=3, 614.295pt x 794.97pt>
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 3>
-Package pdftex.def Info: Homework1.pdf, page3 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page3 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
  <use Homework1.pdf, page 3>
-Package pdftex.def Info: Homework1.pdf, page3 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page3 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: Homework1.pdf Graphic file (type pdf)
 
 <use Homework1.pdf, page 3>
-Package pdftex.def Info: Homework1.pdf, page3 used on input line 93.
+Package pdftex.def Info: Homework1.pdf, page3 used on input line 91.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
  [4 <./Homework1.pdf>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no ˆ in font cmr12!
 Missing character: There is no ’ in font cmr12!
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--101
+Underfull \hbox (badness 10000) in paragraph at lines 95--99
 
  []
 
@@ -541,57 +541,57 @@ Missing character: There is no ’ in font cmr12!
 <p1.pdf, id=138, 614.295pt x 794.97pt>
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf>
-Package pdftex.def Info: p1.pdf used on input line 111.
+Package pdftex.def Info: p1.pdf used on input line 109.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf>
-Package pdftex.def Info: p1.pdf used on input line 111.
+Package pdftex.def Info: p1.pdf used on input line 109.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--111
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
 
  []
 
 [5] <p1.pdf, id=150, page=1, 614.295pt x 794.97pt>
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf, page 1>
-Package pdftex.def Info: p1.pdf, page1 used on input line 111.
+Package pdftex.def Info: p1.pdf, page1 used on input line 109.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 File: p1.pdf Graphic file (type pdf)
 
 <use p1.pdf, page 1>
-Package pdftex.def Info: p1.pdf, page1 used on input line 111.
+Package pdftex.def Info: p1.pdf, page1 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf, page 1>
-Package pdftex.def Info: p1.pdf, page1 used on input line 111.
+Package pdftex.def Info: p1.pdf, page1 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf, page 1>
-Package pdftex.def Info: p1.pdf, page1 used on input line 111.
+Package pdftex.def Info: p1.pdf, page1 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: p1.pdf Graphic file (type pdf)
 
 <use p1.pdf, page 1>
-Package pdftex.def Info: p1.pdf, page1 used on input line 111.
+Package pdftex.def Info: p1.pdf, page1 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
  [6 <./p1.pdf, page is rotated 270 degrees>]
 <p1.pdf, id=156, page=2, 614.295pt x 794.97pt>
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf, page 2>
-Package pdftex.def Info: p1.pdf, page2 used on input line 111.
+Package pdftex.def Info: p1.pdf, page2 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: p1.pdf Graphic file (type pdf)
 
 <use p1.pdf, page 2>
-Package pdftex.def Info: p1.pdf, page2 used on input line 111.
+Package pdftex.def Info: p1.pdf, page2 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
 File: p1.pdf Graphic file (type pdf)
  <use p1.pdf, page 2>
-Package pdftex.def Info: p1.pdf, page2 used on input line 111.
+Package pdftex.def Info: p1.pdf, page2 used on input line 109.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
  [7 <./p1.pdf, page is rotated 270 degrees>]
-Underfull \hbox (badness 10000) in paragraph at lines 115--118
+Underfull \hbox (badness 10000) in paragraph at lines 113--116
 
  []
 
@@ -599,7 +599,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ² in font cmr12!
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
 
  []
 
@@ -609,63 +609,151 @@ Underfull \hbox (badness 10000) in paragraph at lines 142--142
 File: scat_kernel.pdf Graphic file (type pdf)
 
 <use scat_kernel.pdf>
-Package pdftex.def Info: scat_kernel.pdf used on input line 281.
+Package pdftex.def Info: scat_kernel.pdf used on input line 298.
 (pdftex.def)             Requested size: 234.8775pt x 174.50014pt.
  <scat_kernel_E.pdf, id=175, 524.25078pt x 399.55524pt>
 File: scat_kernel_E.pdf Graphic file (type pdf)
 
 <use scat_kernel_E.pdf>
-Package pdftex.def Info: scat_kernel_E.pdf used on input line 282.
+Package pdftex.def Info: scat_kernel_E.pdf used on input line 299.
 (pdftex.def)             Requested size: 234.8775pt x 179.0117pt.
 
-Overfull \hbox (2.61107pt too wide) in paragraph at lines 281--283
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 298--300
 [][] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 300--302
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 305--305
-
  []
 
 [11 <./scat_kernel.pdf> <./scat_kernel_E.pdf
 
 pdfTeX warning: pdflatex (file ./scat_kernel_E.pdf): PDF inclusion: multiple pd
 fs with page group included in a single page
->] [12] (./hw1.aux) ) 
+>]
+Underfull \hbox (badness 10000) in paragraph at lines 317--319
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
+
+ []
+
+[12
+
+] [13] <r6363pi2.pdf, id=258, 523.42738pt x 399.93164pt>
+File: r6363pi2.pdf Graphic file (type pdf)
+ <use r6363pi2.pdf>
+Package pdftex.def Info: r6363pi2.pdf used on input line 405.
+(pdftex.def)             Requested size: 234.8775pt x 179.46106pt.
+
+<r6363pi8.pdf, id=259, 523.42738pt x 399.93164pt>
+File: r6363pi8.pdf Graphic file (type pdf)
+ <use r6363pi8.pdf>
+Package pdftex.def Info: r6363pi8.pdf used on input line 410.
+(pdftex.def)             Requested size: 234.8775pt x 179.46106pt.
+
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 403--413
+[]$[]$ $[]$ 
+ []
+
+<r4163pi2.pdf, id=260, 523.42738pt x 399.93164pt>
+File: r4163pi2.pdf Graphic file (type pdf)
+ <use r4163pi2.pdf>
+Package pdftex.def Info: r4163pi2.pdf used on input line 418.
+(pdftex.def)             Requested size: 234.8775pt x 179.46106pt.
+
+<r4163pi8.pdf, id=261, 523.42738pt x 399.93164pt>
+File: r4163pi8.pdf Graphic file (type pdf)
+ <use r4163pi8.pdf>
+Package pdftex.def Info: r4163pi8.pdf used on input line 423.
+(pdftex.def)             Requested size: 234.8775pt x 179.46106pt.
+
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 416--426
+[]$[]$ $[]$ 
+ []
+
+<r4141pi2.pdf, id=262, 523.42738pt x 399.93164pt>
+File: r4141pi2.pdf Graphic file (type pdf)
+ <use r4141pi2.pdf>
+Package pdftex.def Info: r4141pi2.pdf used on input line 431.
+(pdftex.def)             Requested size: 234.8775pt x 179.46106pt.
+
+<r4141pi8.pdf, id=263, 523.42738pt x 399.93164pt>
+File: r4141pi8.pdf Graphic file (type pdf)
+ <use r4141pi8.pdf>
+Package pdftex.def Info: r4141pi8.pdf used on input line 436.
+(pdftex.def)             Requested size: 234.8775pt x 179.46106pt.
+
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 429--439
+[]$[]$ $[]$ 
+ []
+
+(./moc_code/moc_pureabsorber.py
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 3.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 3.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 20.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 20.
+ [14
+
+ <./r6363pi2.pdf> <./r6363pi8.pdf
+
+pdfTeX warning: pdflatex (file ./r6363pi8.pdf): PDF inclusion: multiple pdfs wi
+th page group included in a single page
+>] [15 <./r4163pi2.pdf> <./r4163pi8.pdf
+
+pdfTeX warning: pdflatex (file ./r4163pi8.pdf): PDF inclusion: multiple pdfs wi
+th page group included in a single page
+> <./r4141pi2.pdf
+
+pdfTeX warning: pdflatex (file ./r4141pi2.pdf): PDF inclusion: multiple pdfs wi
+th page group included in a single page
+> <./r4141pi8.pdf
+
+pdfTeX warning: pdflatex (file ./r4141pi8.pdf): PDF inclusion: multiple pdfs wi
+th page group included in a single page
+>] [16]
+Overfull \hbox (70.85695pt too wide) in paragraph at lines 125--127
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[17]) [18] (./hw1.aux) ) 
 Here is how much of TeX's memory you used:
- 7554 strings out of 493304
- 112378 string characters out of 6139871
- 200335 words of memory out of 5000000
- 10875 multiletter control sequences out of 15000+600000
- 13064 words of font info for 50 fonts, out of 8000000 for 9000
+ 7883 strings out of 493304
+ 116317 string characters out of 6139871
+ 246061 words of memory out of 5000000
+ 11183 multiletter control sequences out of 15000+600000
+ 15874 words of font info for 61 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 42i,18n,46p,270b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/times/utmri8a.pfb>
-Output written on hw1.pdf (12 pages, 767225 bytes).
+ 42i,18n,46p,270b,1670s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on hw1.pdf (18 pages, 1053306 bytes).
 PDF statistics:
- 299 PDF objects out of 1000 (max. 8388607)
- 165 compressed objects within 2 object streams
+ 578 PDF objects out of 1000 (max. 8388607)
+ 286 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
 
