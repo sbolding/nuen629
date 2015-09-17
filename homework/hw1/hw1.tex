@@ -276,30 +276,45 @@ Then, using Eq.~\eqref{eq:mu0}, $\mu_0$ in terms of $E$ and $E'$ is
 For a given $E'=E_i$, we can get the distribution in angle $P(\mu_0)$ by integrating the
 kernel over the range of desired outgoing energies $E\in[0,E_{\max}]$. The
 kernel is a joint PDF in $E$ and $\mu_0$ (for scattering into $\d E$ about $E$ and $\d
-\mu_0$ about $\mu_0$), whereas $E'$, as we have written it, is just a parameter of the distribution.
-Thus, performing the integration, for a particular $E'$, gives
+\mu_0$ about $\mu_0$), whereas $E'$, as we have defined the scattering kernel, is just a parameter of the distribution.
+Thus, performing the integration for a particular $E'$ gives
 \begin{equation}
-    P(\mu_0,0\leq E\leq E_{\min};E'=E_i) = \int_0^{E_{\min}}\!\d E 2\mu_0 \delta(E-f_E(E,E'))
+    P(\mu_0,0\leq E\leq E_{\max};E'=E_i) = \int\limits_0^{E_{\max}}\!\d E \;2\mu_0
+    \delta(E-f_E(\mu_0,E'))
 \end{equation}
 The delta function argument is now only zero for values of $\mu_0$ and $E'$ that
-satisfy $0\leq E< \leq E_{\min}$, thus it limits the support of $\mu_0$.  So the PDF becomes, using Eq.~\eqref{muhydro},
-\begin{equation}
-    P(\mu_0,0\leq E\leq E_{\min};E'=E_i) = 2\mu_0,\quad 0\leq \mu_0 \leq
-    \sqrt{\frac{E_{\min}}{E'}}.
+satisfy $0\leq E \leq E_{\max}$; the integration essentially restricts the support of
+$\mu_0$.  So the desired distribution becomes, using Eq.~\eqref{muhydro},
+\begin{equation} 
+    P(\mu_0,0\leq E\leq E_{\max}) = 2\mu_0,\quad 0\leq \mu_0 \leq
+    \sqrt{\frac{E_{\max}}{E'}}.
 \end{equation}
-Physically, if $E'$ is too much larger than $E$, it cannot undergo a scatter at low angles and
-lose energy to $E$.
+Physically, this result suggests that if $E'$ is too much larger than $E_{\max}$, it
+cannot undergo a small deflection scatter and achieve an energy below $E_{\max}$.
 
-A plot of $P(\mu_0,0\leq E \leq 1\text{ eV})$ vs $\mu_0$ and vs $E'$ are given below
-for the cases of $E'=10 MeV$ and $E'=0.05 MeV$.  Essentially, the plot is the same
-for .  The
-values of $E'$ range between
-$0.05$ MeV to $10$ MeV, with $E$ fixed at 1 eV.  As expected, lower energy neutrons
-are more likely to scatter to 1 eV.
-\begin{figure*}[hb]
-    \includegraphics[width=0.5\textwidth]{scat_kernel.pdf}
-    \includegraphics[width=0.5\textwidth]{scat_kernel_E.pdf}
-\end{figure*}
+A plot of $P(\mu_0,0\leq E \leq 1\text{ eV})$ vs $\mu_0$ and vs $E$ are given below.
+Plots are shown for the limiting cases of $E'=10 MeV$ and $E'=0.05 MeV$.  The shape of the
+distribution in $\mu_0$ is linear for all energies, however the range of the
+distribution differs.  The plot versus energy demonstrates
+that the lower energy neutrons are more likely to scatter below 1 eV, as expected
+\begin{figure}[hb]
+    \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{scat_kernel_05.pdf}
+    \caption{$E'=0.05$ MeV}
+\end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{scat_kernel_E_05.pdf}
+    \caption{$E'=0.05$ MeV}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{scat_kernel_10.pdf}
+    \caption{$E'=10$ MeV}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{scat_kernel_E_10.pdf}
+    \caption{$E'=10$ MeV}
+\end{subfigure}
+\end{figure}
 
  
 
