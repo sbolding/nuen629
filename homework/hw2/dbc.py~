@@ -91,12 +91,10 @@ phi1 = lambda x: -1.*Q*(x*x/(2.*D) - X**2/(8.*D) - X)
 phi2 = lambda x: -1.*Q*(x*x/(2.*D) - X**2/(8.*D) - sqrt(3)/2*X)
 phi3 = lambda x: -1.*Q/(2.*D)*(x**2 - X**2/4)
 phi4 = lambda x:  -1.*Q*x**2/(2.*D) - Q*x*X*(0.5/D-(1+A_r*X/(2*D))/(A_r*X + D)) - Q*X**2/2.*(0.25/D -
-        (1+A_r*(x/(2*D)))/(A_r*x+D))
+        (1+A_r*(X/(2*D)))/(A_r*X+D))
 phi5 = lambda x:  Q/(2.*D)*(-1.*x**2 + x*X + 3.*X*X/4.)
 
 
-alpha = 1.0
-A_r = (1.-alpha)/(2.*(1.+alpha))
 phi6 = lambda x:  -1.*Q*x**2/(2.*D) - Q*x*X*(0.5/D-(1+A_r1*X/(2*D))/(A_r1*X + D)) - Q*X**2/2.*(0.25/D -
         (1+A_r1*(x/(2*D)))/(A_r1*x+D))
 
@@ -109,7 +107,7 @@ plt.plot(x,phi2(x),"-r",label="Mark")
 plt.plot(x,phi3(x),"-g",label="Vacuum")
 plt.plot(x,phi4(x),"--b",label=r"Albedo, $\alpha=0.5$")
 plt.plot(x,phi5(x),"--r",label="Reflecting")
-plt.plot(x,phi6(x),"or",label=r"Albedo, $\alpha=1$")
+plt.plot(x,phi6(x),"+r",label=r"Albedo, $\alpha=1$")
 
 # annotations
 plt.xlabel('$E$ eV')
@@ -131,7 +129,6 @@ plt.ylabel(r'$P(\mu_0,0\leq E \leq \mathrm{1 eV})$')
 plt.grid()
 plt.legend(loc='best')
 plt.show()
-plt.savefig("scat_kernel_E_05"+".pdf",bbox_inches='tight')
 
 
 
