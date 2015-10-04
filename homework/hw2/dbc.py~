@@ -106,7 +106,7 @@ plt.plot(x,phi1(x),"-b",label="Marshak")
 plt.plot(x,phi2(x),"-r",label="Mark")
 plt.plot(x,phi3(x),"-g",label="Vacuum")
 plt.plot(x,phi4(x),"--b",label=r"Albedo, $\alpha=0.5$")
-plt.plot(x,phi5(x),"--r",label="Reflecting")
+plt.plot(x,phi5(x),"-k",label="Reflecting")
 plt.plot(x,phi6(x),"+r",label=r"Albedo, $\alpha=1$")
 
 # annotations
