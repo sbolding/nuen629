@@ -80,7 +80,7 @@ gam[238] = 0.0
 gam[235] = 1.0
 
 #energy change factors
-E_f = lambda A: (A+1.)**2/(A*A + 1.)
+exc_func = lambda A: (A+1.)**2/(A*A + 1.)
 
 #Put cross sections in a dict
 sig_t = dict()
@@ -101,33 +101,34 @@ tolerance = 1.0e-6
 iteration = 0
 max_iterations = 100
 
-#Function for evaluating a new phi
-while not(converged):
-    phi_new = lambda E: 
-    for Ei in xrange(len(energies)):
-        E = energies[Ei]
-        sig_tk = sum([gam[i]*sig_t[i](E) for i in isotopes])
-        scat_src_k = sum([gam[i]*sig_s[i](E_f(i)*E)*phi_prev(E_f(i)*E) for i in isotopes])
-        chi_k = chi(E)
-        phi_new[Ei] = (chi_k + scat_src_k)/sig_tk
 
-    phi_interp = interpolate.interp1d(energies,phi_new,fill_value=0,bounds_error=False)
-    rel_err = np.linalg.norm(phi_prev(energies) - phi_interp(energies))/ \
-                 np.linalg.norm(phi_interp(energies))
+#Function for evaluating a new phi
+phi_new = lambda E: E*0.0
+while not(converged):
+
+    phi_prev = interpolate.interp1d(energies,phi_new(energies),fill_value=0,bounds_error=False)
+
+    #make some lambdas to simplify things
+    scat_src_k = lambda E: sum([gam[i]*sig_s[i](exc_func(i)*E)*phi_prev(exc_func(i)*E) for i in isotopes])
+    sig_t_k = lambda E: sum([gam[i]*sig_t[i](E) for i in isotopes])
+    phi_new = lambda E: (chi(E) + scat_src_k(E))/sig_t_k(E)
+
+    rel_err = np.linalg.norm(phi_prev(energies) - phi_new(energies))/ \
+                 np.linalg.norm(phi_new(energies))
     converged = rel_err < tolerance or (iteration >= max_iterations)
     iteration += 1
 
     #if first iteration save it for plotting
-    if iteration == 1:
-        phi1 = deepcopy(phi_interp)
+    if iteration == 2:
+        phi1 = deepcopy(phi_prev)
 
-    phi_prev = phi_interp
     print "Completed iteration:", iteration, "Relative change:", rel_err
     
 
 #plot the first iteration and last iteration, normalized to have an integral of 1
-plt.loglog(energies,phi1(energies)/np.linalg.norm(phi1(energies)),label="$\phi^{(1)(E)$")
-plt.loglog(energies,phi_interp(energies)/np.linalg.norm(phi_interp(energies)),label="$\phi^{(1)(E)$")
+plt.figure()
+plt.loglog(energies,phi1(energies)/np.linalg.norm(phi1(energies)),label=r"$\phi^{(1)}(E)$")
+plt.loglog(energies,phi_new(energies)/np.linalg.norm(phi_new(energies)),label=r"$\phi(E)$")
 
 #plt.loglog(energies,phi(energies)/np.linalg.norm(phi(energies)),label="U metal")
 plt.xlabel("E (MeV)")
@@ -142,7 +143,7 @@ cx_s = []
 int_phi_sig_t = 0.0
 int_phi_sig_s = 0.0
 int_phi = 0.0
-bounds = [1.E-06, 0.1, 20]
+bounds = [1.E-06, 0.1, 19.999999999]
 count = 0
 
 for Ei in xrange(len(energies)-1):
