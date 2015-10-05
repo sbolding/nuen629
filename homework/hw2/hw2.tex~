@@ -164,7 +164,7 @@ above iteration at each of the energy points of the fine group cross sections. T
 points are defined using the union of the total cross section energy grids of all
 isotopes.  A linear interpolation (python interp1D default interpolation) is used between energy points when one
 cross section is coarser than others. For evaluation above the maximum energy for a
-given cross section, the value at the maximum known energy is used.
+given cross section, the value of the cross section at the maximum energy is used.
 
 
 
