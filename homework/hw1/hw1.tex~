@@ -238,7 +238,7 @@ K(\mu_0,E'\rightarrow E) = \left\{\begin{matrix} \displaystyle
 \left[\frac{\mu_0}{A} + \frac{1 - \frac{1}{A^2}(1 -
 2\mu_0^2)}{2\sqrt{1 - \frac{1}{A^2}(1 -
 \mu_0^2)}}\right]{\delta(E-f_E\left(\mu_c(\mu_0),E'\right))}, &
-\mu_0\in[-1,1]\times E\in[\alpha E',E'] \\ 
+\mu_0\in[-1,1],\; E\in[\alpha E',E'] \\ 
  0, & \text{otherwise}
 \end{matrix}\right. 
 }.

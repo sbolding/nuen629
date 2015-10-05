@@ -6,6 +6,7 @@ import math
 import matplotlib.font_manager as fm
 import matplotlib.ticker as mtick
 from scipy import interpolate
+from scipy.integrate import quadrature
 from copy import deepcopy
 
 #create the fission spectrum 
@@ -57,7 +58,8 @@ energies = np.union1d(energies,sigma_t_12[:,0])
 
 #let's make some plots
 fig = plt.figure()
-plt.loglog(energies, sig_t_238_interp(energies))
+plt.loglog(energies, sig_t_238_interp(energies),label=r"$\sigma^{238}_t$")
+plt.loglog(energies, sig_s_238_interp(energies),label=r"$\sigma^{238}_s")
 plt.loglog(energies, sig_t_12_interp(energies), label="$\sigma^{12}_\mathrm{t}$")
 plt.loglog(energies, sig_s_12_interp(energies), label="$\sigma^{12}_\mathrm{s}$")
 plt.legend(loc=3) #bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
@@ -72,12 +74,6 @@ gam[235] = 0.0072
 gam[238] = 0.9928
 gam[12.0107]  = 150.
 isotopes = gam.keys()
-
-#For kicks
-print "DEBUG MODE"
-gam[12.0107] = 0.0
-gam[238] = 0.0
-gam[235] = 1.0
 
 #energy change factors
 exc_func = lambda A: (A+1.)**2/(A*A + 1.)
@@ -99,7 +95,7 @@ phi1 = None
 converged = 0
 tolerance = 1.0e-6
 iteration = 0
-max_iterations = 100
+max_iterations = 1000
 
 
 #Function for evaluating a new phi
@@ -127,14 +123,14 @@ while not(converged):
 
 #plot the first iteration and last iteration, normalized to have an integral of 1
 plt.figure()
-plt.loglog(energies,phi1(energies)/np.linalg.norm(phi1(energies)),label=r"$\phi^{(1)}(E)$")
-plt.loglog(energies,phi_new(energies)/np.linalg.norm(phi_new(energies)),label=r"$\phi(E)$")
+plt.loglog(energies,phi_new(energies)/np.sum(phi_new(energies)),label=r"$\phi(E)$")
+plt.loglog(energies,phi1(energies)/np.sum(phi_new(energies)),label=r"$\phi^{(1)}(E)$")
 
 #plt.loglog(energies,phi(energies)/np.linalg.norm(phi(energies)),label="U metal")
 plt.xlabel("E (MeV)")
 plt.ylabel("$\phi(E)/\|phi(E)\|_2$ (MeV$^{-1}$)")
 plt.legend(loc='best')
-plt.show()
+plt.savefig("../uc_spect.pdf",bbox_inches='tight')
 
 
 #Collapse the cross sections
@@ -148,33 +144,35 @@ count = 0
 
 for Ei in xrange(len(energies)-1):
 
-    E = energies(Ei)
-    dE = energies(Ei+1) - energies(Ei)
+    E = (energies[Ei]+energies[Ei+1])/2.
+    dE = energies[Ei+1] - energies[Ei]
     
     #get cross sections at this energy
     sig_t_tot = sum([gam[i]*sig_t[i](E) for i in isotopes])
     sig_s_tot = sum([gam[i]*sig_s[i](E) for i in isotopes])
-    phi_i = phi_interp(E)
+    phi_i = phi_new(E)
 
     #Use left point quadrature at this energy
     int_phi_sig_t += phi_i*sig_t_tot*dE
-    int_phi_sig_S += phi_i*sig_s_tot*dE
+    int_phi_sig_s += phi_i*sig_s_tot*dE
     int_phi += phi_i*dE
 
     #check if hit bound, make CX
-    if E > bounds[count]:
+    if E > bounds[count] or Ei == len(energies)-2:
+        print Ei
+        print "Done with group", count
         cx_t.append(int_phi_sig_t/int_phi)
         cx_s.append(int_phi_sig_s/int_phi)
         int_phi_sig_t = 0.0
         int_phi_sig_s = 0.0
         int_phi = 0.0
-
+        count += 1
 
 print "Final cross sections: "
-print "Scattering: ", cx_s
-print "Total: ", cx_t
+print "Scattering: ", [i for i in reversed(cx_s)]
+print "Total: ", [i for i in reversed(cx_t)]
 
-
+plt.show()
 
 
 

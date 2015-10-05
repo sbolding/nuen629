@@ -109,7 +109,6 @@ NNDC are given below.
 \end{figure}
 
 
-
 The ratio of 150:1 for graphite to natural uranium is assumed to be an of
 atomic ratio.  Natural uranium is
 taken to be 0.72\% $^{235}$U and the remainder $^{238}$U, by atom percentage. 
@@ -165,11 +164,122 @@ points are defined using the union of the total cross section energy grids of al
 isotopes.  A linear interpolation (python interp1D default interpolation) is used between energy points when one
 cross section is coarser than others. For evaluation above the maximum energy for a
 given cross section, the value of the cross section at the maximum energy is used.
+All values of cross sections and flux above 20 MeV were ignored.  
+
+Once $\phi(E)$ is obtained, the collapsed cross sections are computed as
+\begin{equation}
+    \sigma_{n,g} = \frac{\int_{E_g}^{E_{g-1}} \d E  \sum_{j} \gamma_j \sigma_n^j(E)
+\sum\phi(E)}{\int_{E_g}^{E_{g-1}} \d E \phi(E)}
+\end{equation}
+for the $g$-th group and $n$-th reaction type. The integral is approximated with
+midpoint quadrature.
+
+
+In Fig.~\ref{1} the obtained solution for the fully converged spectrum is plotted against the initial
+uncollided spectrum, where
+both are normalized relative to the integral of the converged $\phi(E)$. As shown,
+the spectrum demonstrates significant moderation to lower energies due to the large amount of graphite
+present. The collapsed group cross sections are given in Table~\ref{cx}.
+The python script used to compute the answers is given at the end of the assignment.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.6\textwidth]{uc_spect.pdf}
+\caption{\label{1}Comparison of scattering corrected and uncollided spectrum for
+infinite-medium mix of natural Uranium and elemental Carbon}
+\end{figure}
+\begin{table}
+    \centering
+    \caption{3 Group cross section for 150:1 Carbon Uranium mix}
+    \begin{tabular}{|ccc|}\hline
+        Group & $\sigma_{t,g}$ (b) & $\sigma_{s,g}$ (b) \\ \hline
+         0    &  395.1   & 391.4 \\ 
+         1    &  697.2   & 695.9 \\
+         2    &  732.8   & 729.6 \\ \hline
+     \end{tabular}
+\end{table}
+
+
 
 
 
 
 \end{solnum}
+
+\clearpage
+
+\begin{solnum}{2}
+
+First, we need an atom density of the hydrogen.  Based on ideal gas law, the density
+scales proportional to tempurature.  At 1 atm, the density of hydrogen at room
+temperature is roughly 9.E-04 g cm$^{-3}$.  Scaling by 30, gives a density of 0.003
+g cm$^{-3}$.  This is in agreement to 1 significant digit with an online calculator that takes into account
+compressibility of hydrogen at 30 atm and room temperature.  This gives a
+corresponding atom density of hydrogen as
+\begin{equation}
+    N^{H} = 0.003 \frac{\text{g}}{\text{cm}^3}\frac{1\text{ mol H}_2}{2.02\text {g
+    H}_2}\frac{2 H}{1 H_2}\frac{0.60221\text{ atoms cm}^2}{\text{b}} \approx
+    0.002\;\frac{\text{H atoms}}{\text{b--cm}}
+\end{equation}
+
+As an initial approximation, I assumed that within the semi-infinite Hydrogen medium, several
+mfp away from the source, the sphere of \iso{U}{235} will appear as an isotropic
+boundary source to a 1D, semi-infinite medium.  Following the notes, the general multigroup
+1D transport equation we will be solving, in the Hydrogen, will have the form
+\begin{equation}\label{te_orig}
+    \mu\pderiv{\psi_g(z,\mu)}{z} +\hat\Sigma_{tg}\psi_g = \sum_{l=0}^\infty
+    \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma_{slg'\ra g} +
+    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{tlg'}\right)\right]\phi_{lg'}(z) +
+    q(\mu,z,
+\end{equation}
+where $\hat\Sigma_{tg}$ is yet to be defined.
+Also, it is assumed that the spectrum of energies leaving the sphere of \iso{U}{235} is well
+approximated by the fission emission energy spectrum $\chi(E)$ (i.e., only consider the
+uncollided energy spectrum).  The group integrated $\chi(E)$ for \iso{U}{235} is
+computed.  All groups have a high scattering ratio of $\approx0.9999$.  Thus, a
+few MFP away from the boundary source, we expect diffusion theory to be applicable,
+with essentially a pure scatter. Consider the 1-speed diffusion theory equation for a pure
+scatterer, in a semi-infinite medium, with no internal source
+\begin{equation}
+    -D \frac{\d^2\phi}{\d x^2} = 0.
+\end{equation}
+The requirement that the flux be bounded at infinity requires a constant spatial
+solution, so we thus can neglect spatial gradients in Eq.~\eqref{te_orig}.
+We choose to normalize the effective source of neutrons from the sphere such that the
+magnitude of the energy integrated source is 1.  Thus, our transport equation to be solved becomes
+\begin{equation}
+    \hat\Sigma_{t,g}\psi_g(\mu) = \sum_{l=0}^\infty
+    \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma_{slg'\ra g} +
+    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{tlg'}\right)\right]\phi_{lg'} +
+    \frac{\chi_g}{2}
+\end{equation}
+Taking the zeroth moment gives the equation for the scalar flux in each group as
+\begin{equation}
+    \hat\Sigma_{t,g}\phi_g = \sum_{g'=0}^{G-1}\left[\Sigma_{s0g'\ra g} +
+    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{t0g'}\right)\right]\phi_{g'} +
+    \chi_g
+\end{equation}
+The first moment gives the equation for the current in each group as
+\begin{equation}
+    \hat\Sigma_{t,g}J_g = \sum_{g'=0}^{G-1}\left[\Sigma_{s1g'\ra g} +
+    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{t1g}\right)\right]J_g'
+\end{equation}
+For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
+\Sigma_{t0,g}$, which simplifies the equation for the scalar flux to
+\begin{equation}
+    \Sigma_{t0,g}\phi_g = \sum_{g'=0}^{G-1}\Sigma_{s0g'\ra g}\phi_{g'} +
+    \chi_g
+\end{equation}
+
+
+
+
+
+    
+
+
+
+\end{solnum}
+
 
 %\includepdf[pages={1}]{p1p3.pdf}
 \clearpage
@@ -198,6 +308,8 @@ given cross section, the value of the cross section at the maximum energy is use
         \end{tabular}
     \end{table}
 \clearpage
+\subsubsection*{Code for Problem 1}
+\lstinputlisting[basicstyle=\scriptsize]{group_collapse/cxproc.py}
 
 
 \end{document}
