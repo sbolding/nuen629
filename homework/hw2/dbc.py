@@ -79,9 +79,9 @@ print "\nPhi at left edge: ", phi.subs(subs)
 print "Value at left edge is: ", vall.subs(subs)
 
 Q = 1.0
-D = 0.1
+D = 0.5
 alpha = 0.5
-X = 1.0
+X = 10.0
 A_r = (1.-alpha)/(2.*(1.+alpha))
 alpha1 = 1.0
 A_r1    = (1.-alpha1)/(2.*(1.+alpha1))
@@ -96,39 +96,41 @@ phi5 = lambda x:  Q/(2.*D)*(-1.*x**2 + x*X + 3.*X*X/4.)
 
 
 phi6 = lambda x:  -1.*Q*x**2/(2.*D) - Q*x*X*(0.5/D-(1+A_r1*X/(2*D))/(A_r1*X + D)) - Q*X**2/2.*(0.25/D -
-        (1+A_r1*(x/(2*D)))/(A_r1*x+D))
+        (1+A_r1*(X/(2.*D)))/(A_r1*X+D))
+alpha2 = 0.0
+A_r2   = (1.-alpha2)/(2.*(1.+alpha2))
+phi7 = lambda x:  -1.*Q*x**2/(2.*D) - Q*x*X*(0.5/D-(1+A_r2*X/(2*D))/(A_r2*X + D)) - Q*X**2/2.*(0.25/D -
+        (1+A_r2*(X/(2.*D)))/(A_r2*X+D))
 
 x = np.linspace(-X/2,X/2,num=100)
 
-plt.figure()
-# plot temperatures
+fig = plt.figure()
 plt.plot(x,phi1(x),"-b",label="Marshak")
 plt.plot(x,phi2(x),"-r",label="Mark")
-plt.plot(x,phi3(x),"-g",label="Vacuum")
-plt.plot(x,phi4(x),"--b",label=r"Albedo, $\alpha=0.5$")
-plt.plot(x,phi5(x),"-k",label="Reflecting")
-plt.plot(x,phi6(x),"+r",label=r"Albedo, $\alpha=1$")
+plt.plot(x,phi3(x),"-g",label="Vacuum Dirichlet")
 
 # annotations
-plt.xlabel('$E$ eV')
-plt.ylabel(r'$P(\mu_0,0\leq E \leq \mathrm{1 eV})$')
+plt.xlabel('$x$')
+plt.ylabel('$\phi(x)')
 plt.grid()
 plt.legend(loc='best')
-plt.show()
-#plt.savefig("scat_kernel_E_05"+".pdf",bbox_inches='tight')
+fig.savefig("diff_soln1.pdf",bbox_inches='tight')
 
-plt.figure()
+fig = plt.figure()
 # plot temperatures
-plt.plot(x,phi4(x),"--b",label=r"Albedo, $\alpha=0.5$")
-#plt.plot(x,phi5(x),"--r",label="Reflecting")
-#plt.plot(x,phi6(x),"or",label=r"Albedo, $\alpha=1$")
+plt.plot(x,phi4(x),"-k",label=r"Albedo, $\alpha=0.5$")
+plt.plot(x,phi5(x),"--b",label="Reflecting")
+plt.plot(x,phi6(x),"+b",label=r"Albedo, $\alpha=1$")
+plt.plot(x,phi1(x),"--r",label="Marshak Vacuum")
+plt.plot(x,phi7(x),"+r",label=r"Albedo, $\alpha=0$")
 
 # annotations
-plt.xlabel('$E$ eV')
-plt.ylabel(r'$P(\mu_0,0\leq E \leq \mathrm{1 eV})$')
+plt.xlabel('$x$')
+plt.ylabel('$\phi(x)')
 plt.grid()
 plt.legend(loc='best')
 plt.show()
+fig.savefig("diff_soln2.pdf",bbox_inches='tight')
 
 
 

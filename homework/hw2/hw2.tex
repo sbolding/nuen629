@@ -285,28 +285,51 @@ For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
 \clearpage
     \includepdf[pages={1-2}]{p3.pdf}
     A summary of the solutions obtained for each of the boundary conditions is given
-    in the table below.  Each solution was checked to ensure they satisfy the
-    boundary conditions.
-    \begin{table}[h]
+    in the table below. The figures below compares plots for the case of $Q=1$,
+    $D=0.5$ and $X=10$.  The first figure demonstrates that Dirichlet (without use of
+    the extrapolated BC) can be very inaccurate.  The solution with Mark boundary
+    conditions is lower in magnitude than for the Marshak case, which is expected due
+    to symmetry and that the Mark boundary condition has a shorter extrapolation
+    distance of $\sqrt(3)D$, compared to $2D$. The results of the boundary
+    conditions very greatly for this case.  A smaller value of $D$ or increased $X$
+    will result in more accurate solutions, relatively, on the interior of the
+    domain. The second plot shows that albedo varies between a Marshak and Reflective
+    condition.  As expected, the
+    reflective BC on the far side results in a much larger magnitude in the solution
+    as leakage is reduced.
+    \begin{table}[h!]
         \centering
         \caption{Solutions with different boundary conditions for  a pure scatter for slab of width $X$ centered at
         $x=0$.}
         \begin{tabular}{|c|c|c|} \hline
             Left BC & Right BC & $\phi(x)$ \\ \hline
-            Vacuum Marshak & Vacuum Marshak & $\phi(x) = Q\left(\frac{X^2}{8D} + X-\frac{x^2}{2D} 
+            Vac. Marshak & Vacuum Marshak & $\phi(x) = Q\left(\frac{X^2}{8D} + X-\frac{x^2}{2D} 
             \right)            $ \\ 
-            Vacuum Mark & Vacuum Marshak & $\phi(x) = Q\left(
+            Vac. Mark & Vacuum Marshak & $\phi(x) = Q\left(
             \frac{X^2}{8D} + \frac{X\sqrt{3}}{2}-\frac{x^2}{2D}\right)$ \\ 
-            Vacuum Dirichlet  & Vacuum Dirichlet & $\phi(x) = \frac{Q}{2D}\left( 
+            Vac. Dirichlet  & Vacuum Dirichlet & $\phi(x) = \frac{Q}{2D}\left( 
             \frac{X^2}{4} - x^2\right)  $ \\ 
-            Vacuum Dirichlet    & Albedo  & $\phi(x) = -\frac{Qx^2}{2D} +
+            Vac. Dirichlet    & Albedo  & $\phi(x) = -\frac{Qx^2}{2D} +
             QxX\left(\frac{1+\A\frac{X}{2D}}{\A X + D} - \frac{1}{2D}  \right) +
-            Q\frac{X^2}{2} \left(\frac{1+\A\frac{X}{2D}}{\A X +
+            Q\frac{X^2}{2}\!\! \left(\frac{1+\A\frac{X}{2D}}{\A X +
             D}-\frac{1}{4D}\right) $ \\
-            Vacuum Dirichlet    & Reflecting & $\phi(x) =
+            Vac. Dirichlet    & Reflecting & $\phi(x) =
             \frac{Q}{2D}\left(\frac{3X^2}{4} + xX  - {x^2}\right)$ \\ \hline
         \end{tabular}
     \end{table}
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}{0.495\textwidth}
+            \centering 
+            \includegraphics[width=0.99\textwidth]{diff_soln1.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            \centering 
+            \includegraphics[width=0.99\textwidth]{diff_soln2.pdf}
+        \end{subfigure}
+        \caption{Comparison of Diffusion solutions for various boundary conditions
+        with Q=1, D=0.5, X=10.}
+    \end{figure}
 \clearpage
 \subsubsection*{Code for Problem 1}
 \lstinputlisting[basicstyle=\scriptsize]{group_collapse/cxproc.py}
