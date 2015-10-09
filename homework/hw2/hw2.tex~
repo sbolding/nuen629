@@ -113,7 +113,9 @@ The ratio of 150:1 for graphite to natural uranium is assumed to be an of
 atomic ratio.  Natural uranium is
 taken to be 0.72\% $^{235}$U and the remainder $^{238}$U, by atom percentage. 
 The total cross section
-is assumed to only consist of elastic scattering, fission, and removal events.
+is assumed to only consist of elastic scattering, fission, and removal events.  Since
+this system is scattering dominated, it is probably more accurate to use a Maxwellian
+distribution for the flux at thermal energies.
 
 We follow a similar procedure to the one in lab.  For an infinite medium, with
 fine-group cross sections, the balance equation becomes
@@ -124,7 +126,7 @@ fine-group cross sections, the balance equation becomes
     \gamma_{235}\nubar\sigma_f^{235}\right)\phi(E'),
 \end{multline}
 where $j$ indicates the $j$-th isotope, $N^U$ is the atom density of natural uranium
-in the system, and $\gamma_j$ is 150, 0.9928, and 0.0072 for Carbon, \iso{U}{238},
+in the system, and $\gamma_j$ is 150/151, 0.9928/151, and 0.0072/151 for Carbon, \iso{U}{238},
 and \iso{U}{235}, respectively.  It is assumed $\chi(E)$ is the same for \iso{U}{238}
 and \iso{U}{235}, given by the Watt spectrum from class
 \begin{equation}
@@ -168,10 +170,10 @@ All values of cross sections and flux above 20 MeV were ignored.
 
 Once $\phi(E)$ is obtained, the collapsed cross sections are computed as
 \begin{equation}
-    \sigma_{n,g} = \frac{\int_{E_g}^{E_{g-1}} \d E  \sum_{j} \gamma_j \sigma_n^j(E)
+    \sigma_{n,g} = \frac{\int_{E_g}^{E_{g-1}} \d E \sigma_n^j(E)
 \sum\phi(E)}{\int_{E_g}^{E_{g-1}} \d E \phi(E)}
 \end{equation}
-for the $g$-th group and $n$-th reaction type. The integral is approximated with
+for the $g$-th group, $j$-th isotope, and $n$-th reaction type. The integral is approximated with
 midpoint quadrature.
 
 
@@ -179,8 +181,12 @@ In Fig.~\ref{1} the obtained solution for the fully converged spectrum is plotte
 uncollided spectrum, where
 both are normalized relative to the integral of the converged $\phi(E)$. As shown,
 the spectrum demonstrates significant moderation to lower energies due to the large amount of graphite
-present. The collapsed group cross sections are given in Table~\ref{cx}.
-The python script used to compute the answers is given at the end of the assignment.
+present. The microscopic collapsed group cross sections are given in Table~\ref{cx}.
+For comparison, I also computed a total thermal group collapsed cross section using a
+Maxwellian distribution.  The Maxwellian collapsed cross sections give
+$\Sigma_t=5.04$ b and $\Sigma_t=4.99$ b, indicating the flux is larger at lower
+energies for the reactor than the Watt-spectrum indicates, likely a result of the scattering
+treatment not allowing for upscattering at thermal energies.  The python script used to compute the answers is given at the end of the assignment.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.6\textwidth]{uc_spect.pdf}
@@ -189,12 +195,25 @@ infinite-medium mix of natural Uranium and elemental Carbon}
 \end{figure}
 \begin{table}
     \centering
-    \caption{3 Group cross section for 150:1 Carbon Uranium mix}
+    \caption{3 Group cross section for 150:1 Carbon Uranium mix\label{cx}}
     \begin{tabular}{|ccc|}\hline
-        Group & $\sigma_{t,g}$ (b) & $\sigma_{s,g}$ (b) \\ \hline
-         0    &  395.1   & 391.4 \\ 
-         1    &  697.2   & 695.9 \\
-         2    &  732.8   & 729.6 \\ \hline
+        Group & $\sigma_{t,g}$ (b) & $\sigma_{s,g}$ (b) \\ \hline\hline
+        \multicolumn{3}{|c|}{Carbon} \\ \hline
+         0    &  2.581   & 2.575 \\ 
+         1    &  4.558   & 4.554 \\
+         2    &  4.810   & 4.803 \\ \hline
+         \multicolumn{3}{|c|}{\iso{U}{235}} \\ \hline
+         0    &  7.755   & 4.543  \\ 
+         1    &  13.68   & 10.60  \\
+         2    &  171.8   & 13.96 \\ \hline
+         \multicolumn{3}{|c|}{\iso{U}{238}} \\ \hline
+         0    &  7.927   & 5.177 \\ 
+         1    &  13.41   & 12.79 \\
+         2    &  10.10   & 9.189 \\ \hline
+         \multicolumn{3}{|c|}{150:1 C to U mix} \\ \hline
+         0    &  2.617   & 2.592 \\ 
+         1    &  4.617   & 4.609 \\
+         2    &  4.853   & 4.832 \\ \hline
      \end{tabular}
 \end{table}
 
@@ -211,14 +230,14 @@ infinite-medium mix of natural Uranium and elemental Carbon}
 
 First, we need an atom density of the hydrogen.  Based on ideal gas law, the density
 scales proportional to tempurature.  At 1 atm, the density of hydrogen at room
-temperature is roughly 9.E-04 g cm$^{-3}$.  Scaling by 30, gives a density of 0.003
+temperature is roughly 9.E-04 g cm$^{-3}$.  Scaling by 30, gives a density of 0.0025
 g cm$^{-3}$.  This is in agreement to 1 significant digit with an online calculator that takes into account
 compressibility of hydrogen at 30 atm and room temperature.  This gives a
 corresponding atom density of hydrogen as
 \begin{equation}
-    N^{H} = 0.003 \frac{\text{g}}{\text{cm}^3}\frac{1\text{ mol H}_2}{2.02\text {g
+    N^{H} = 0.0025 \frac{\text{g}}{\text{cm}^3}\frac{1\text{ mol H}_2}{2.02\text {g
     H}_2}\frac{2 H}{1 H_2}\frac{0.60221\text{ atoms cm}^2}{\text{b}} \approx
-    0.002\;\frac{\text{H atoms}}{\text{b--cm}}
+    0.00149\;\frac{\text{H atoms}}{\text{b--cm}}
 \end{equation}
 
 As an initial approximation, I assumed that within the semi-infinite Hydrogen medium, several
@@ -229,7 +248,7 @@ boundary source to a 1D, semi-infinite medium.  Following the notes, the general
     \mu\pderiv{\psi_g(z,\mu)}{z} +\hat\Sigma_{tg}\psi_g = \sum_{l=0}^\infty
     \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma_{slg'\ra g} +
     \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{tlg'}\right)\right]\phi_{lg'}(z) +
-    q(\mu,z,
+    q(\mu,z),
 \end{equation}
 where $\hat\Sigma_{tg}$ is yet to be defined.
 Also, it is assumed that the spectrum of energies leaving the sphere of \iso{U}{235} is well
@@ -248,10 +267,11 @@ We choose to normalize the effective source of neutrons from the sphere such tha
 magnitude of the energy integrated source is 1.  Thus, our transport equation to be solved becomes
 \begin{equation}
     \hat\Sigma_{t,g}\psi_g(\mu) = \sum_{l=0}^\infty
-    \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma_{slg'\ra g} +
+    \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma^*_{slg'\ra g} +
     \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{tlg'}\right)\right]\phi_{lg'} +
     \frac{\chi_g}{2}
 \end{equation}
+where the $\Sigma_s^*$ will depend on the method.
 Taking the zeroth moment gives the equation for the scalar flux in each group as
 \begin{equation}
     \hat\Sigma_{t,g}\phi_g = \sum_{g'=0}^{G-1}\left[\Sigma_{s0g'\ra g} +
@@ -261,14 +281,59 @@ Taking the zeroth moment gives the equation for the scalar flux in each group as
 The first moment gives the equation for the current in each group as
 \begin{equation}
     \hat\Sigma_{t,g}J_g = \sum_{g'=0}^{G-1}\left[\Sigma_{s1g'\ra g} +
-    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{t1g}\right)\right]J_g'
+    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{t1g}\right)\right]J_g'.
 \end{equation}
-For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
-\Sigma_{t0,g}$, which simplifies the equation for the scalar flux to
+The only solution to the above equation is 0.  So, based on our assumptions of an
+isotropic source, for all methods and all groups, $\boxed{J_g=0}$.
+
+The equation for the scalar flux can be written as a matrix equation as
 \begin{equation}
-    \Sigma_{t0,g}\phi_g = \sum_{g'=0}^{G-1}\Sigma_{s0g'\ra g}\phi_{g'} +
-    \chi_g
+    \mathbf{S\Phi} = \boldsymbol{\chi}
 \end{equation}
+with matrix elements defined as
+\begin{equation}
+    \chi_i = \chi_{g_i}, \quad g_i=0,1,\ldots,G-1
+\end{equation}
+\begin{equation}
+    \phi_i = \phi_{g_i}, \quad g_i=0,1,\ldots,G-1
+\end{equation}
+and
+\begin{equation}
+    S_{ij} = \left\{\begin{matrix}
+        \hat\Sigma_{t,g_i} -\Sigma^*_{s0g_{i}\ra g_{i}} & i=j
+        \\  
+        -\Sigma^*_{s0g_i\ra g_j} & i \neq j
+    \end{matrix}\right.
+\end{equation}
+
+For the approximation of separable in energy, the effective cross sections become $\hat\Sigma_{t,g} = \Sigma_{t,g}$ and
+$\Sigma^*_{s0,g'\ra g} = \Sigma_{s0,g'\ra g}$.
+For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
+\Sigma_{t0,g}$, which gives the same equations for scalar flux since we
+are only interested in the $0$-th moment cross sections. For the extended Legendre
+expansion we want
+\begin{equation}
+    \hat\Sigma_{tg} = \Sigma_{t,L+1,g} - \sum_{g'=0}^{G-1} \Sigma_{s,L+1,g\ra g'}
+\end{equation}
+where since we are interested in the scalar flux we will choose $L=0$, giving
+\begin{equation}
+    \hat\Sigma_{tg} = \Sigma_{t1,g} - \sum_{g'=0}^{G-1} \Sigma_{s1,g\ra g'}
+\end{equation}
+If we make the approximation
+\begin{equation}
+\Sigma_{t1,g} \approx \Sigma_{s1,g} := \sum_{g'=0}^{G-1} \Sigma_{s1,g\ra g'}
+\end{equation}
+then we get $\hat\Sigma_{tg} = 0$.  This leads to an identical set of equations as
+the other two methods.
+
+Solving the matrix system gives a solution for $\phi_g$ (the same for all three
+methods).  A plot of the solutions
+in each group are compared below. The code is given at the end of the assignment
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{method_compare.pdf}
+\end{figure}
 
 
 
@@ -290,13 +355,13 @@ For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
     the extrapolated BC) can be very inaccurate.  The solution with Mark boundary
     conditions is lower in magnitude than for the Marshak case, which is expected due
     to symmetry and that the Mark boundary condition has a shorter extrapolation
-    distance of $\sqrt(3)D$, compared to $2D$. The results of the boundary
-    conditions very greatly for this case.  A smaller value of $D$ or increased $X$
-    will result in more accurate solutions, relatively, on the interior of the
+    distance of $\sqrt{3} D$, compared to $2D$ for Marshak. For the chosen parameters
+    there is noticeable variation between the different choices of BC.  A smaller value of $D$ or increased $X$
+    will result in more consistent solutions, particularly on the interior of the
     domain. The second plot shows that albedo varies between a Marshak and Reflective
-    condition.  As expected, the
-    reflective BC on the far side results in a much larger magnitude in the solution
-    as leakage is reduced.
+    condition.  As expected, 
+    reflective-type BC's on the right side of the domain results in a much larger magnitude in the solution
+    as leakage is reduced but the source strength is the same as the vacuum cases.
     \begin{table}[h!]
         \centering
         \caption{Solutions with different boundary conditions for  a pure scatter for slab of width $X$ centered at
@@ -333,7 +398,7 @@ For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
 \clearpage
 \subsubsection*{Code for Problem 1}
 \lstinputlisting[basicstyle=\scriptsize]{group_collapse/cxproc.py}
-
+\lstinputlisting[basicstyle=\scriptsize]{energy_corrections/legendre.py}
 
 \end{document}
 

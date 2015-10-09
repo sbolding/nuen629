@@ -8,6 +8,7 @@ import matplotlib.ticker as mtick
 from scipy import interpolate
 from scipy.integrate import quadrature
 from copy import deepcopy
+from math import exp
 
 #create the fission spectrum 
 chi = lambda E:  0.4865*np.sinh(np.sqrt(2*E))*np.exp(-E)
@@ -70,9 +71,10 @@ plt.savefig("carb_cx.pdf",bbox_inches='tight')
 
 #atom ratios, keys are atomic mass numbers
 gam = dict()
-gam[235] = 0.0072
-gam[238] = 0.9928
-gam[12.0107]  = 150.
+tot = 150 + 0.0072 + 0.9928
+gam[235] = 0.0072/tot
+gam[238] = 0.9928/tot
+gam[12.0107]  = 150./tot
 isotopes = gam.keys()
 
 #energy change factors
@@ -133,7 +135,51 @@ plt.legend(loc='best')
 plt.savefig("../uc_spect.pdf",bbox_inches='tight')
 
 
-#Collapse the cross sections
+#Collapse the cross sections for each material
+final_scat_cx = dict()
+final_tot_cx = dict()
+for iso in isotopes:
+
+    cx_t = []
+    cx_s = []
+    int_phi_sig_t = 0.0
+    int_phi_sig_s = 0.0
+    int_phi = 0.0
+    bounds = [1.E-06, 0.1, 19.999999999]
+    count = 0
+
+    for Ei in xrange(len(energies)-1):
+
+        E = (energies[Ei]+energies[Ei+1])/2.
+        dE = energies[Ei+1] - energies[Ei]
+        
+        #get cross sections at this energy
+        sig_t_tot = sig_t[iso](E)
+        sig_s_tot = sig_s[iso](E) 
+        phi_i = phi_new(E)
+
+        #Use left point quadrature at this energy
+        int_phi_sig_t += phi_i*sig_t_tot*dE
+        int_phi_sig_s += phi_i*sig_s_tot*dE
+        int_phi += phi_i*dE
+
+        #check if hit bound, make CX
+        if E > bounds[count] or Ei == len(energies)-2:
+            print "Done with group", len(bounds)-count-1
+            cx_t.append(int_phi_sig_t/int_phi)
+            cx_s.append(int_phi_sig_s/int_phi)
+            int_phi_sig_t = 0.0
+            int_phi_sig_s = 0.0
+            int_phi = 0.0
+            count += 1
+
+    print "Final cross sections for: ", iso
+    print "Scattering: ", [j for j in reversed(cx_s)]
+    print "Total: ", [j for j in reversed(cx_t)]
+    final_scat_cx[iso] = [j for j in reversed(cx_s)]
+    final_tot_cx[iso]  = [j for j in reversed(cx_t)]
+
+#Total cross sections Collapse 
 cx_t = []
 cx_s = []
 int_phi_sig_t = 0.0
@@ -142,15 +188,35 @@ int_phi = 0.0
 bounds = [1.E-06, 0.1, 19.999999999]
 count = 0
 
+#collapse by hand
+scat = []
+tot  = []
+for g in range(len(bounds)):
+    scat.append(sum([gam[i]*final_scat_cx[i][g] for i in isotopes]))
+    tot.append(sum([gam[i]*final_tot_cx[i][g] for i in isotopes]))
+
+print "Scattering collapsed: ", scat
+print "Total collapsed: ", tot
+
+
+#See what the thermal cross section would look like with a maxwelliana
+k = 8.6173303E-11 #MeV/K
+T = 293 #K
+
+maxwell = lambda E: E*exp(-E/(k*T))
+int_phi_sig_t = 0.0
+int_phi_sig_s = 0.0
+int_phi = 0.0
+bound   = 1.E-06
 for Ei in xrange(len(energies)-1):
 
     E = (energies[Ei]+energies[Ei+1])/2.
     dE = energies[Ei+1] - energies[Ei]
     
     #get cross sections at this energy
-    sig_t_tot = sum([gam[i]*sig_t[i](E) for i in isotopes])
-    sig_s_tot = sum([gam[i]*sig_s[i](E) for i in isotopes])
-    phi_i = phi_new(E)
+    sig_t_tot = sum([gam[iso]*sig_t[iso](E) for iso in isotopes])
+    sig_s_tot = sum([gam[iso]*sig_s[iso](E) for iso in isotopes])
+    phi_i = maxwell(E)
 
     #Use left point quadrature at this energy
     int_phi_sig_t += phi_i*sig_t_tot*dE
@@ -158,19 +224,10 @@ for Ei in xrange(len(energies)-1):
     int_phi += phi_i*dE
 
     #check if hit bound, make CX
-    if E > bounds[count] or Ei == len(energies)-2:
-        print Ei
-        print "Done with group", count
-        cx_t.append(int_phi_sig_t/int_phi)
-        cx_s.append(int_phi_sig_s/int_phi)
-        int_phi_sig_t = 0.0
-        int_phi_sig_s = 0.0
-        int_phi = 0.0
-        count += 1
-
-print "Final cross sections: "
-print "Scattering: ", [i for i in reversed(cx_s)]
-print "Total: ", [i for i in reversed(cx_t)]
+    if E > bound:
+        print "Maxwellian collapsed Sigma_t, Sigma_s:",int_phi_sig_t/int_phi,\
+                int_phi_sig_s/int_phi
+        break
 
 plt.show()
 
