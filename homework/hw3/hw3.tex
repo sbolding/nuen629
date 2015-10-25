@@ -42,6 +42,7 @@
 \usepackage{setspace}
 
 \newcommand{\ihat}{\ensuremath{\hat{\textbf{\i}}}}
+\newcommand{\keff}{\ensuremath{k_{\mathrm{eff}}}}
 \newcommand{\jhat}{\ensuremath{\hat{\textbf{\j}}}}
 \newcommand{\lline}{\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}}
 \newcommand{\N}{\mathbb{N}}
@@ -85,7 +86,7 @@
 %                         Start here
 % --------------------------------------------------------------
  
-\title{Homework 2}%replace X with the appropriate number
+\title{Homework 3}%replace X with the appropriate number
 \author{Simon Bolding\\ %replace with your name
 NUEN 629} %if necessary, replace with your course title
  
@@ -93,135 +94,31 @@ NUEN 629} %if necessary, replace with your course title
 
 \clearpage
 
-\includepdf{Homework2.pdf}
+\includepdf{Homework3.pdf}
 
-\begin{solnum}{1}
+\begin{solnum}{1-1}
     
-Several approximations were made to simplify the process.  First, graphite is
-approximated as elemental Carbon, with molar mass 12.0107 (g/mol).  This was done because there is not a human
-friendly form of the graphite cross sections available on NNDC and elemental Carbon
-will have similar scattering properties, except for at low energies where diffraction is
-possible.  A plot of the elastic and total cross sections for elemental Carbon from
-NNDC are given below.
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\textwidth]{carb_cx.pdf}
-\end{figure}
+The 2D lattice input code provided in lab was modified to generate an input for zion
+benchmark problem.  Because the
+provided code assumes a uniform mesh size, approximations must be made to resolve the
+baffle in the geometry.  I have assumed that if a particular cells center lies with
+in the region of the baffle, then that cell has the baffle material properties.  Also, I have assumed that the assemblies near the reflecting
+boundary are full assemblies, rather than half assemblies.
 
+\end{solnum}
 
-The ratio of 150:1 for graphite to natural uranium is assumed to be an of
-atomic ratio.  Natural uranium is
-taken to be 0.72\% $^{235}$U and the remainder $^{238}$U, by atom percentage. 
-The total cross section
-is assumed to only consist of elastic scattering, fission, and removal events.  Since
-this system is scattering dominated, it is probably more accurate to use a Maxwellian
-distribution for the flux at thermal energies.
+\begin{solnum}{1-2}
 
-We follow a similar procedure to the one in lab.  For an infinite medium, with
-fine-group cross sections, the balance equation becomes
-\begin{multline}
-    N^{U}\sum_{j} \gamma_j \sigma_t^j(E) \psi(\mu,E) = N^{U}\sum_{j} \gamma_j
-    \frac{1}{2} \int\limits_0^\infty \d E' \sigma_s^j (E'\ra E)\phi(E') + \\
-    N^U\frac{\chi(E)}{2k} \int_0^\infty\d E' \left(\gamma_{238}\nubar\sigma_f^{238} +
-    \gamma_{235}\nubar\sigma_f^{235}\right)\phi(E'),
-\end{multline}
-where $j$ indicates the $j$-th isotope, $N^U$ is the atom density of natural uranium
-in the system, and $\gamma_j$ is 150/151, 0.9928/151, and 0.0072/151 for Carbon, \iso{U}{238},
-and \iso{U}{235}, respectively.  It is assumed $\chi(E)$ is the same for \iso{U}{238}
-and \iso{U}{235}, given by the Watt spectrum from class
-\begin{equation}
-    \chi(E) = 0.4865 \sinh(\sqrt{2E})e^{-E}.
-\end{equation}
-We now simplify by normalizing such that the energy integrated fission source has a
-magnitude of 1.  We also assume all scattering events result in the average
-scattering energy loss, which, assuming isotropic scattering in the center of mass
-frame, gives an average outgoing energy of 
-\begin{equation}
-    \langle E\rangle = \frac{A^2 + 1}{(A+1)^2}E'
-\end{equation}
-in the lab frame.  With this simplificiation, only a particular $E'$ governed by the above equation can scatter
-into $E$, so the the elastic scattering source for the $j$-th term in the summation can be simplified as
-\begin{align}
-    \int_0^\infty \d E' \sigma_s^j(E')P(E'\ra E)\phi(E') &= \int_0^\infty \d
-    E'\sigma_s^j(E')\delta\left(E' - E \frac{E'}{\langle E \rangle}\right) \phi(E') \\
-    &= \sigma_s^j\left(\frac{(A+1)^2}{A^2+1}E\right) \phi\left(\frac{(A+1)^2}{A^2+1}E\right) \\
-\end{align}
-where $A$ is the atomic mass number for the $j$-th isotope, approximated as 12.0107 for elemental carbon.
-Substituting back into the original equation and integrating over angle gives the
-final equation for the scalar flux as
-\begin{equation}
-    \sum_{j} \gamma_j \sigma_t^j(E) \phi(E) = \sum_{j} \gamma_j \sigma_s^j \left(\frac{(A+1)^2}{A^2+1}E\right) \phi\left(\frac{(A+1)^2}{A^2+1}E\right) 
-   + {\chi(E)} .
-\end{equation}
-We solve this equation with the Jacobi iteration
-\begin{equation}
-    \sum_{j} \gamma_j \sigma_t^j(E) \phi^{(k)}(E) = \sum_{j} \gamma_j \sigma_s^j
-    \left(\frac{(A+1)^2}{A^2+1}E\right) \phi^{(k-1)}\left(\frac{(A+1)^2}{A^2+1}E\right) 
-   + {\chi(E)} .
-\end{equation}
-with an initial guess of $\phi^{(0)}(E)=0$.
-To approximate the continuous energy cross sections and $\phi(E)$ we simply evaluate the
-above iteration at each of the energy points of the fine group cross sections. The
-points are defined using the union of the total cross section energy grids of all
-isotopes.  A linear interpolation (python interp1D default interpolation) is used between energy points when one
-cross section is coarser than others. For evaluation above the maximum energy for a
-given cross section, the value of the cross section at the maximum energy is used.
-All values of cross sections and flux above 20 MeV were ignored.  
+The provided algorithms for the nodal method in class had to be modified. Although it
+is not the most efficient, we have modified.
 
-Once $\phi(E)$ is obtained, the collapsed cross sections are computed as
-\begin{equation}
-    \sigma_{n,g} = \frac{\int_{E_g}^{E_{g-1}} \d E \sigma_n^j(E)
-\sum\phi(E)}{\int_{E_g}^{E_{g-1}} \d E \phi(E)}
-\end{equation}
-for the $g$-th group, $j$-th isotope, and $n$-th reaction type. The integral is approximated with
-midpoint quadrature.
+\begin{solnum}{1-3}
 
-
-In Fig.~\ref{1} the obtained solution for the fully converged spectrum is plotted against the initial
-uncollided spectrum, where
-both are normalized relative to the integral of the converged $\phi(E)$. As shown,
-the spectrum demonstrates significant moderation to lower energies due to the large amount of graphite
-present. The microscopic collapsed group cross sections are given in Table~\ref{cx}.
-For comparison, I also computed a total thermal group collapsed cross section using a
-Maxwellian distribution.  The Maxwellian collapsed cross sections give
-$\Sigma_t=5.04$ b and $\Sigma_t=4.99$ b, indicating the flux is larger at lower
-energies for the reactor than the Watt-spectrum indicates, likely a result of the scattering
-treatment not allowing for upscattering at thermal energies.  The python script used to compute the answers is given at the end of the assignment.
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.6\textwidth]{uc_spect.pdf}
-\caption{\label{1}Comparison of scattering corrected and uncollided spectrum for
-infinite-medium mix of natural Uranium and elemental Carbon}
-\end{figure}
-\begin{table}
-    \centering
-    \caption{3 Group cross section for 150:1 Carbon Uranium mix\label{cx}}
-    \begin{tabular}{|ccc|}\hline
-        Group & $\sigma_{t,g}$ (b) & $\sigma_{s,g}$ (b) \\ \hline\hline
-        \multicolumn{3}{|c|}{Carbon} \\ \hline
-         0    &  2.581   & 2.575 \\ 
-         1    &  4.558   & 4.554 \\
-         2    &  4.810   & 4.803 \\ \hline
-         \multicolumn{3}{|c|}{\iso{U}{235}} \\ \hline
-         0    &  7.755   & 4.543  \\ 
-         1    &  13.68   & 10.60  \\
-         2    &  171.8   & 13.96 \\ \hline
-         \multicolumn{3}{|c|}{\iso{U}{238}} \\ \hline
-         0    &  7.927   & 5.177 \\ 
-         1    &  13.41   & 12.79 \\
-         2    &  10.10   & 9.189 \\ \hline
-         \multicolumn{3}{|c|}{150:1 C to U mix} \\ \hline
-         0    &  2.617   & 2.592 \\ 
-         1    &  4.617   & 4.609 \\
-         2    &  4.853   & 4.832 \\ \hline
-     \end{tabular}
-\end{table}
-
-
-
-
-
-
+Because the nodal code is very slow, the finite difference code was used to determine
+the critical reactor height. The secant method was used to determine the critical
+height to 4 digits of accuracy.  The critical height was found to be BLARG cm. This
+is a reasonable number since the 2D reactor had a relatively high $\keff$ of
+$\sim$1.27.
 \end{solnum}
 
 \clearpage
