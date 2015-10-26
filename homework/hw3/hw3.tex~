@@ -98,199 +98,149 @@ NUEN 629} %if necessary, replace with your course title
 
 \begin{solnum}{1-1}
     
-The 2D lattice input code provided in lab was modified to generate an input for zion
+The 2D lattice input code provided in lab was modified to generate the input for the
+first
 benchmark problem.  Because the
 provided code assumes a uniform mesh size, approximations must be made to resolve the
 baffle in the geometry.  I have assumed that if a particular cells center lies with
 in the region of the baffle, then that cell has the baffle material properties.  Also, I have assumed that the assemblies near the reflecting
-boundary are full assemblies, rather than half assemblies.
+boundary are full assemblies, rather than half assemblies. To match the edges of the
+assembly exactly, I used numbers of cells in the $x$ and $y$ direction that are
+factors of 9.  It is noted that this will cause a jump in convergence of the solution
+in terms of mesh size, caused at points where the cell widths are small enough that
+an additional baffle  cell can be inserted.  
+
+The assembly power is averaged over each
+cell in a 9x9 grid over the quarter reactor, weighted by $\nu \Sigma_f$ in each
+group.  Since we do not know $\Sigma_f$ individually this is not exact since $\nu$ is
+larger for the fast group, generally.  Since we are normalizing, this is not a great
+error, and produces a zero assembly power in the water regions as desired.
+
+A convergence table versus mesh size as a function of the number of cells is given
+below.  The change in $\keff$ appears to increase above 1296 cells.  This is possibly
+due to the approximation of the baffle as explained above, however a run without the
+baffle produced similar results.  Although it is possible that the 
+
+\begin{table}
+    \centering
+    \caption{Convergence table for finite difference method versus number of mesh
+    cells.}
+    \begin{tabular}{ccc}
+81   & 1.2786193689  &  -- \\
+324       & 1.27611471632   & 0.00250465258332 \\
+729       & 1.27609454035   & 2.01759703702e-05 \\
+1296      & 1.27623214214   & 0.00013760179336  \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}
+    \centering
+    \caption{Material ID's for Problem 1. There is a slight error due to how pcolor
+    interpolates linear values at cell centers, so the entire picture is shifted}
+    \includegraphics[width=0.5\textwidth]{geometry.pdf}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Normalized group 1 fluxes for finite difference solution}
+    \includegraphics[width=0.5\textwidth]{prob1_diff_g1.pdf}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Normalized group 2 fluxes for finite difference solution}
+    \includegraphics[width=0.5\textwidth]{prob1_diff_g2.pdf}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Assembly (assuming 9x9 grid) averaged powers for problem 1, normalized
+    to the max assembly power, solved using finite differences.}
+    \includegraphics[width=0.5\textwidth]{prob1_diff_g2.pdf}
+\end{figure}
 
 \end{solnum}
+\clearpage
+
+\begin{solnum}{1-2}
+
+The provided $k$ code and nodal code were modified to solve $k$ problems using the
+nodal method.  The outer iterations were essentailly unmodified, with only the 2D
+steady fixed-source solve modified.
+The provided algorithms for the nodal method in class had to be modified to produce a
+stable algorithm. Although it
+is not the most efficient, the method is modified to use internal solution for
+computing the transverse total currents.  For example, for the nodal solve in the $x$
+direction, the $y$ transverse leakage term becomes
+\begin{equation*}
+  L_y,ij(x) = \frac{1}{h_y}\left(\overline{J}^y_{ij}(x_i,y_j+h_y/2) -
+  \overline{J}^y_{ij}(x_i,y_j-h_y/2) \right)
+\end{equation*}
+where, for simplicity, the transverse current has also been assumed as a piecewise
+constant spatially along the direction of the nodal solve, and the $L_x$ and $L_y$
+terms in their respective solves are lagged for the entire sweeps (Jacobi
+iteration). Because I have used Marshak or reflective boundary conditions, using the
+same equation for boundary cells also strictly enforces the boundary condition.
+
+The iteration would
+likely be more efficient if the outward partial currents from the cell were used for
+the transverse leakages, with the inflowing currents coming from adjacent cells, however I did not test this approach
+for stability.  If we use the total current from adjacent cells for the leakage
+terms, then the iteration is not stable.  I believe this is due to
+the fact that the transverse 
+current (which was computed by the previous nodal solve in the transverse direction)
+was computed using a lagged inflow to the adjacent cell.  We are now using that
+lagged inflow as the transverse outflow within our cell.  Thus, the transverse outflow to the
+cell of interest is 2 iterations behind, and this seems to be too inaccurate for
+stability.  
+
+Due to time constraints and because the nodal iteration was very slow, I did not
+attempt to converge $\keff$ to 1.E-05.  A plot of the group fluxes and assembly powers are
+given below for the case of 324 cells.  For this case $\keff$ was found to be
+1.271.  This is in agreement with the finite difference solution, noting that the baffle is extra
+large since there is only 2 cells in each assembly in this case.  With a loose tolerance of 1.E-04 on all iteration loops, this solve took
+519 seconds, so this method is very slow without the CMFD acceleration.
+\begin{figure}
+    \centering
+    \caption{Normalized group 1 fluxes for nodal method solution with 324 cells}
+    \includegraphics[width=0.5\textwidth]{prob1_g1_nodal.pdf}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Normalized group 2 fluxes for nodal method with 324 cells}
+    \includegraphics[width=0.5\textwidth]{prob1_g2_nodal.pdf}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Assembly (assuming 9x9 grid) averaged powers for problem 1, normalized
+    to the max assembly power, solved using nodal method.}
+    \includegraphics[width=0.5\textwidth]{powers_nodal.pdf}
+\end{figure}
+
+
+
+\end{solnum}
+
+\clearpage
 
 \begin{solnum}{1-3}
 
 Because the nodal code is very slow, the finite difference code was used to determine
 the critical reactor height. The secant method was used to determine the critical
-height to 4 digits of accuracy.  The critical height was found to be BLARG cm. This
+height to a relative tolerance in $\keff$ of 1.E-05, taking 11 iterations on $H$
+from an initial educated guess of $50$ cm.  A mesh was used with 729 elements. The
+critical height was found to be  $46.85$ cm, producing a $\keff$ of 0.999996. This
 is a reasonable number since the 2D reactor had a relatively high $\keff$ of
 $\sim$1.27.
 \end{solnum}
 
 \clearpage
 
-\begin{solnum}{2}
-
-First, we need an atom density of the hydrogen.  Based on ideal gas law, the density
-scales proportional to tempurature.  At 1 atm, the density of hydrogen at room
-temperature is roughly 9.E-04 g cm$^{-3}$.  Scaling by 30, gives a density of 0.0025
-g cm$^{-3}$.  This is in agreement to 1 significant digit with an online calculator that takes into account
-compressibility of hydrogen at 30 atm and room temperature.  This gives a
-corresponding atom density of hydrogen as
-\begin{equation}
-    N^{H} = 0.0025 \frac{\text{g}}{\text{cm}^3}\frac{1\text{ mol H}_2}{2.02\text {g
-    H}_2}\frac{2 H}{1 H_2}\frac{0.60221\text{ atoms cm}^2}{\text{b}} \approx
-    0.00149\;\frac{\text{H atoms}}{\text{b--cm}}
-\end{equation}
-
-As an initial approximation, I assumed that within the semi-infinite Hydrogen medium, several
-mfp away from the source, the sphere of \iso{U}{235} will appear as an isotropic
-boundary source to a 1D, semi-infinite medium.  Following the notes, the general multigroup
-1D transport equation we will be solving, in the Hydrogen, will have the form
-\begin{equation}\label{te_orig}
-    \mu\pderiv{\psi_g(z,\mu)}{z} +\hat\Sigma_{tg}\psi_g = \sum_{l=0}^\infty
-    \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma_{slg'\ra g} +
-    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{tlg'}\right)\right]\phi_{lg'}(z) +
-    q(\mu,z),
-\end{equation}
-where $\hat\Sigma_{tg}$ is yet to be defined.
-Also, it is assumed that the spectrum of energies leaving the sphere of \iso{U}{235} is well
-approximated by the fission emission energy spectrum $\chi(E)$ (i.e., only consider the
-uncollided energy spectrum).  The group integrated $\chi(E)$ for \iso{U}{235} is
-computed.  All groups have a high scattering ratio of $\approx0.9999$.  Thus, a
-few MFP away from the boundary source, we expect diffusion theory to be applicable,
-with essentially a pure scatter. Consider the 1-speed diffusion theory equation for a pure
-scatterer, in a semi-infinite medium, with no internal source
-\begin{equation}
-    -D \frac{\d^2\phi}{\d x^2} = 0.
-\end{equation}
-The requirement that the flux be bounded at infinity requires a constant spatial
-solution, so we thus can neglect spatial gradients in Eq.~\eqref{te_orig}.
-We choose to normalize the effective source of neutrons from the sphere such that the
-magnitude of the energy integrated source is 1.  Thus, our transport equation to be solved becomes
-\begin{equation}
-    \hat\Sigma_{t,g}\psi_g(\mu) = \sum_{l=0}^\infty
-    \frac{2l+1}{2} P_l(\mu) \sum_{g'=0}^{G-1}\left[\Sigma^*_{slg'\ra g} +
-    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{tlg'}\right)\right]\phi_{lg'} +
-    \frac{\chi_g}{2}
-\end{equation}
-where the $\Sigma_s^*$ will depend on the method.
-Taking the zeroth moment gives the equation for the scalar flux in each group as
-\begin{equation}
-    \hat\Sigma_{t,g}\phi_g = \sum_{g'=0}^{G-1}\left[\Sigma_{s0g'\ra g} +
-    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{t0g'}\right)\right]\phi_{g'} +
-    \chi_g
-\end{equation}
-The first moment gives the equation for the current in each group as
-\begin{equation}
-    \hat\Sigma_{t,g}J_g = \sum_{g'=0}^{G-1}\left[\Sigma_{s1g'\ra g} +
-    \delta_{gg'}\left(\hat\Sigma_{tg'}-\Sigma_{t1g}\right)\right]J_g'.
-\end{equation}
-The only solution to the above equation is 0.  So, based on our assumptions of an
-isotropic source, for all methods and all groups, $\boxed{J_g=0}$.
-
-The equation for the scalar flux can be written as a matrix equation as
-\begin{equation}
-    \mathbf{S\Phi} = \boldsymbol{\chi}
-\end{equation}
-with matrix elements defined as
-\begin{equation}
-    \chi_i = \chi_{g_i}, \quad g_i=0,1,\ldots,G-1
-\end{equation}
-\begin{equation}
-    \phi_i = \phi_{g_i}, \quad g_i=0,1,\ldots,G-1
-\end{equation}
-and
-\begin{equation}
-    S_{ij} = \left\{\begin{matrix}
-        \hat\Sigma_{t,g_i} -\Sigma^*_{s0g_{i}\ra g_{i}} & i=j
-        \\  
-        -\Sigma^*_{s0g_i\ra g_j} & i \neq j
-    \end{matrix}\right.
-\end{equation}
-
-For the approximation of separable in energy, the effective cross sections become $\hat\Sigma_{t,g} = \Sigma_{t,g}$ and
-$\Sigma^*_{s0,g'\ra g} = \Sigma_{s0,g'\ra g}$.
-For the P$_1$ consistent form of the equation, we set $\hat\Sigma_{t,g} =
-\Sigma_{t0,g}$, which gives the same equations for scalar flux since we
-are only interested in the $0$-th moment cross sections. For the extended Legendre
-expansion we want
-\begin{equation}
-    \hat\Sigma_{tg} = \Sigma_{t,L+1,g} - \sum_{g'=0}^{G-1} \Sigma_{s,L+1,g\ra g'}
-\end{equation}
-where since we are interested in the scalar flux we will choose $L=0$, giving
-\begin{equation}
-    \hat\Sigma_{tg} = \Sigma_{t1,g} - \sum_{g'=0}^{G-1} \Sigma_{s1,g\ra g'}
-\end{equation}
-If we make the approximation
-\begin{equation}
-\Sigma_{t1,g} \approx \Sigma_{s1,g} := \sum_{g'=0}^{G-1} \Sigma_{s1,g\ra g'}
-\end{equation}
-then we get $\hat\Sigma_{tg} = 0$.  This leads to an identical set of equations as
-the other two methods.
-
-Solving the matrix system gives a solution for $\phi_g$ (the same for all three
-methods).  A plot of the solutions
-in each group are compared below. The code is given at the end of the assignment
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{method_compare.pdf}
-\end{figure}
-
-
-
-
-
-    
-
-
-
-\end{solnum}
-
-
-%\includepdf[pages={1}]{p1p3.pdf}
 \clearpage
-    \includepdf[pages={1-2}]{p3.pdf}
-    A summary of the solutions obtained for each of the boundary conditions is given
-    in the table below. The figures below compares plots for the case of $Q=1$,
-    $D=0.5$ and $X=10$.  The first figure demonstrates that Dirichlet (without use of
-    the extrapolated BC) can be very inaccurate.  The solution with Mark boundary
-    conditions is lower in magnitude than for the Marshak case, which is expected due
-    to symmetry and that the Mark boundary condition has a shorter extrapolation
-    distance of $\sqrt{3} D$, compared to $2D$ for Marshak. For the chosen parameters
-    there is noticeable variation between the different choices of BC.  A smaller value of $D$ or increased $X$
-    will result in more consistent solutions, particularly on the interior of the
-    domain. The second plot shows that albedo varies between a Marshak and Reflective
-    condition.  As expected, 
-    reflective-type BC's on the right side of the domain results in a much larger magnitude in the solution
-    as leakage is reduced but the source strength is the same as the vacuum cases.
-    \begin{table}[h!]
-        \centering
-        \caption{Solutions with different boundary conditions for  a pure scatter for slab of width $X$ centered at
-        $x=0$.}
-        \begin{tabular}{|c|c|c|} \hline
-            Left BC & Right BC & $\phi(x)$ \\ \hline
-            Vac. Marshak & Vacuum Marshak & $\phi(x) = Q\left(\frac{X^2}{8D} + X-\frac{x^2}{2D} 
-            \right)            $ \\ 
-            Vac. Mark & Vacuum Marshak & $\phi(x) = Q\left(
-            \frac{X^2}{8D} + \frac{X\sqrt{3}}{2}-\frac{x^2}{2D}\right)$ \\ 
-            Vac. Dirichlet  & Vacuum Dirichlet & $\phi(x) = \frac{Q}{2D}\left( 
-            \frac{X^2}{4} - x^2\right)  $ \\ 
-            Vac. Dirichlet    & Albedo  & $\phi(x) = -\frac{Qx^2}{2D} +
-            QxX\left(\frac{1+\A\frac{X}{2D}}{\A X + D} - \frac{1}{2D}  \right) +
-            Q\frac{X^2}{2}\!\! \left(\frac{1+\A\frac{X}{2D}}{\A X +
-            D}-\frac{1}{4D}\right) $ \\
-            Vac. Dirichlet    & Reflecting & $\phi(x) =
-            \frac{Q}{2D}\left(\frac{3X^2}{4} + xX  - {x^2}\right)$ \\ \hline
-        \end{tabular}
-    \end{table}
-    \begin{figure}[h!]
-        \centering
-        \begin{subfigure}{0.495\textwidth}
-            \centering 
-            \includegraphics[width=0.99\textwidth]{diff_soln1.pdf}
-        \end{subfigure}
-        \begin{subfigure}{0.495\textwidth}
-            \centering 
-            \includegraphics[width=0.99\textwidth]{diff_soln2.pdf}
-        \end{subfigure}
-        \caption{Comparison of Diffusion solutions for various boundary conditions
-        with Q=1, D=0.5, X=10.}
-    \end{figure}
-\clearpage
-\subsubsection*{Code for Problem 1}
-\lstinputlisting[basicstyle=\scriptsize]{group_collapse/cxproc.py}
-\lstinputlisting[basicstyle=\scriptsize]{energy_corrections/legendre.py}
+\subsubsection*{Code}
+%\lstinputlisting[basicstyle=\scriptsize]{finite_difference.py}
 
 \end{document}
 
