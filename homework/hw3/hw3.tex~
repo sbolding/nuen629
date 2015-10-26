@@ -205,8 +205,8 @@ Due to time constraints and because the nodal iteration was very slow, I did not
 attempt to converge $\keff$ to 1.E-05.  A plot of the group fluxes and assembly powers are
 given below for the case of 729 cells.  For this case $\keff$ was found to be
 1.273.  This is in agreement with the finite difference solution, noting that the baffle is extra
-large since there is only 2 cells in each assembly in this case.  With a loose tolerance of 1.E-04 on all iteration loops, this solve took
-990 seconds, so this method is very slow without the CMFD acceleration. The thermal flux appears to not be fully converged
+large since there is only 2 cells in each assembly in this case.  With a loose tolerance of 1.E-05 on all iteration loops, this solve took
+1400 seconds, so this method is very slow without the CMFD acceleration. The thermal flux appears to not be fully converged, likely due to the convergence of the $x$ and $y$ sweeping directions or possibly the outer fission source iteration.
 \begin{figure}
     \centering
     \caption{Normalized group 1 fluxes for nodal method solution with 729 cells}
