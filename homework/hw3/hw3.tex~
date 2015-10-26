@@ -117,19 +117,26 @@ larger for the fast group, generally.  Since we are normalizing, this is not a g
 error, and produces a zero assembly power in the water regions as desired.
 
 A convergence table versus mesh size as a function of the number of cells is given
-below.  The change in $\keff$ appears to increase above 1296 cells.  This is possibly
-due to the approximation of the baffle as explained above, however a run without the
-baffle produced similar results.  Although it is possible that the 
+below.  It appears that the solution is convergent above 3969 cells and that it
+would reach a tolerance of 1 pcm around 12,000 cells, noting that there is some
+variablity due to the baffle approximations.  The time to solution at 8100
+cells is 1600 seconds. 
 
 \begin{table}
     \centering
     \caption{Convergence table for finite difference method versus number of mesh
     cells.}
-    \begin{tabular}{ccc}
-81   & 1.2786193689  &  -- \\
+\begin{tabular}{ccc} \hline
+81   & 1.2786193689  &  -- \\ 
 324       & 1.27611471632   & 0.00250465258332 \\
 729       & 1.27609454035   & 2.01759703702e-05 \\
-1296      & 1.27623214214   & 0.00013760179336  \\ \hline
+1296      & 1.27623214214   & 0.00013760179336  \\ 
+2025 & 1.27586573839 & 0.000290925744068  \\
+2916 & 1.27563942334 & 0.000177413023663  \\
+3969 & 1.27549513858 & 0.000113120586226  \\
+5184 & 1.27540107208 & 7.37544516677e-05  \\
+6561 & 1.27533957529 & 4.82199314754e-05  \\ \hline
+8100 & 1.27530010292 & 3.09514302439e05   \\ \hline
     \end{tabular}
 \end{table}
 
@@ -155,8 +162,8 @@ baffle produced similar results.  Although it is possible that the
 \begin{figure}
     \centering
     \caption{Assembly (assuming 9x9 grid) averaged powers for problem 1, normalized
-    to the max assembly power, solved using finite differences.}
-    \includegraphics[width=0.5\textwidth]{prob1_diff_g2.pdf}
+    to the max assembly power, solved using finite differences. Note: there is a slight error in the way pcolor is interpolating values.}
+    \includegraphics[width=0.5\textwidth]{powers_diff.pdf}
 \end{figure}
 
 \end{solnum}
@@ -196,26 +203,26 @@ stability.
 
 Due to time constraints and because the nodal iteration was very slow, I did not
 attempt to converge $\keff$ to 1.E-05.  A plot of the group fluxes and assembly powers are
-given below for the case of 324 cells.  For this case $\keff$ was found to be
-1.271.  This is in agreement with the finite difference solution, noting that the baffle is extra
+given below for the case of 729 cells.  For this case $\keff$ was found to be
+1.273.  This is in agreement with the finite difference solution, noting that the baffle is extra
 large since there is only 2 cells in each assembly in this case.  With a loose tolerance of 1.E-04 on all iteration loops, this solve took
-519 seconds, so this method is very slow without the CMFD acceleration.
+990 seconds, so this method is very slow without the CMFD acceleration. The thermal flux appears to not be fully converged
 \begin{figure}
     \centering
-    \caption{Normalized group 1 fluxes for nodal method solution with 324 cells}
+    \caption{Normalized group 1 fluxes for nodal method solution with 729 cells}
     \includegraphics[width=0.5\textwidth]{prob1_g1_nodal.pdf}
 \end{figure}
 
 \begin{figure}
     \centering
-    \caption{Normalized group 2 fluxes for nodal method with 324 cells}
+    \caption{Normalized group 2 fluxes for nodal method with 729 cells}
     \includegraphics[width=0.5\textwidth]{prob1_g2_nodal.pdf}
 \end{figure}
 
 \begin{figure}
     \centering
     \caption{Assembly (assuming 9x9 grid) averaged powers for problem 1, normalized
-    to the max assembly power, solved using nodal method.}
+    to the max assembly power, solved using nodal method. Same issues with pcolor interpolating strangely, the edge of boxes are actualy the center of assemblies}
     \includegraphics[width=0.5\textwidth]{powers_nodal.pdf}
 \end{figure}
 
@@ -240,7 +247,7 @@ $\sim$1.27.
 
 \clearpage
 \subsubsection*{Code}
-%\lstinputlisting[basicstyle=\scriptsize]{finite_difference.py}
+\lstinputlisting[basicstyle=\scriptsize]{code.py}
 
 \end{document}
 
