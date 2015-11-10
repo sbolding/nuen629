@@ -97,9 +97,83 @@ NUEN 629} %if necessary, replace with your course title
 \includepdf{Homework4.pdf}
 
 \begin{solnum}{1-1}
+
+To modify the provided code to use the step discretization, essentially only the
+1DSweep function needs to be modified.  For example, for a positive direction of
+$\mu_n$ the flux in the $i$-th cell is, for the $k-th$ sweep,
+\begin{equation}
+    \psi^{(k+1)}_{i,n} = \frac{\frac{1}{2}\left(\phi^{(k)}_i + Q\right) +
+    \frac{\mu_n}{h_x}\psi_{i-1,n}}{\Sigma_t + \frac{\mu_n}{h_x}},
+\end{equation}
+where $\psi_{i-1,n}$ is either defined by the boundary conditon, i.e., $\psi_{0} =
+f(\mu_n)$, or is known from solution of the previous cell in the sweep. The negative
+direction sweep is defined analogously. 
+
+For the given problem parameters, source iteration was too slow to converge as $c=1$, so the
+GMRES solver was used for both spatial discretizations.  This was verified to
+converge to the same solution as source iteration for a sanity check.  A plot of the
+different solutions for the different resolutions and spatial discretizations is
+given below, for $N=16$ angles, in Fig.~\ref{fig1}. On
+the finest mesh, increasing to $N=24$ had no visible effect on the solution.  The
+solutions do not agree well between different refinements, or between step and the
+diamond difference (DD) solutions.  The vast difference in solutions is due to the
+large, pure scattering cross sections; neither step nor DD preserve the diffusion
+limit.  Test problems with more modest cross sections ($\Sigma_t=1$ cm$^{-1}$, $c=0.5$)
+showed good agreement as the mesh is refined, as shown in Fig.~\ref{fig2}
+
+ Also plotted below is a finite difference diffusion 
+solution to the same problem using Mark Boundary conditions for 100 cells, compared
+to the step solution for 1000 cells.  It is
+noted that for this problem diffusion theory should be fairly accurate, particularly
+away from the boundaries.  Although the mesh for the transport solve is fine to the $O(1/\Sigma_t)$, the
+solutions still seem to disagree.  This seems to be due to the fact that it is a pure
+scattering solution. Although GMRES converges, there be some numerical stability
+issues of some kind that cause the inaccuracy.  If we add a small amount of
+absorption, with $\Sigma_t = \Sigma_s+0.001$, then the solutions agree much more
+accurately on the interior.  
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{prob1.pdf}
+    \caption{Comparison of step and DD spatial discretizations for different numbers
+        of zones.\label{fig1}}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{prob1_thin.pdf}
+    \caption{Comparison of step and DD spatial discretizations for different numbers
+        of zones, with $\Sigma_s = \Sigma_a = 0.5$ cm$^{-1}$.\label{fig2}}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{diff.pdf}
+    \caption{Comparison of diffusion and very fine mesh step solution.}
+\end{figure}
+\begin{figure}[h!]
+    \cen
     
 
 \end{solnum}
+
+\begin{solnum}{1-2}
+
+The different forms of the discretization are result of the solution being generally
+undefined at the faces of cells, due to the discontinuity of the solution at cell
+edges.  A closure of some kind must be defined because even in the weak-form we need
+a value for $\psi$ on the face.  The given equations define $\psi$ on the face using the upwind closure, which attempts to numerically
+propagate information in the physical direction of flow, based on the characteristic
+flow of information in each direction.  This, in theory, resolves strong spatial
+gradients with higher physical accuracy.  This closure also provides stability to the
+equations, which could demonstrate oscillations with a poor choice of closure.
+
+\end{solnum}
+
+\begin{solnum}{1-3}
+
+
+
+\end{solnum}
+
 \clearpage
 
 \clearpage
