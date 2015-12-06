@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  17 NOV 2015 17:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  4 DEC 2015 16:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**hw4.tex
-(./hw4.tex
+**hw5.tex
+(./hw5.tex
 LaTeX2e <2011/06/27>
 Babel <3.9h> and hyphenation patterns for 78 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -332,8 +332,8 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
-) (./hw4.aux)
-\openout1 = `hw4.aux'.
+) (./hw5.aux)
+\openout1 = `hw5.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
 LaTeX Font Info:    ... okay on input line 83.
@@ -456,45 +456,45 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 93.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <Homework4.pdf, id=8, 614.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <Homework5.pdf, id=8, 614.
 295pt x 794.97pt>
-File: Homework4.pdf Graphic file (type pdf)
+File: Homework5.pdf Graphic file (type pdf)
 
-<use Homework4.pdf>
-Package pdftex.def Info: Homework4.pdf used on input line 97.
+<use Homework5.pdf>
+Package pdftex.def Info: Homework5.pdf used on input line 97.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-File: Homework4.pdf Graphic file (type pdf)
- <use Homework4.pdf>
-Package pdftex.def Info: Homework4.pdf used on input line 97.
+File: Homework5.pdf Graphic file (type pdf)
+ <use Homework5.pdf>
+Package pdftex.def Info: Homework5.pdf used on input line 97.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
-<Homework4.pdf, id=11, page=1, 614.295pt x 794.97pt>
-File: Homework4.pdf Graphic file (type pdf)
+<Homework5.pdf, id=11, page=1, 614.295pt x 794.97pt>
+File: Homework5.pdf Graphic file (type pdf)
 
-<use Homework4.pdf, page 1>
-Package pdftex.def Info: Homework4.pdf, page1 used on input line 97.
+<use Homework5.pdf, page 1>
+Package pdftex.def Info: Homework5.pdf, page1 used on input line 97.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-File: Homework4.pdf Graphic file (type pdf)
- <use Homework4.pdf, page 1>
-Package pdftex.def Info: Homework4.pdf, page1 used on input line 97.
+File: Homework5.pdf Graphic file (type pdf)
+ <use Homework5.pdf, page 1>
+Package pdftex.def Info: Homework5.pdf, page1 used on input line 97.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
-File: Homework4.pdf Graphic file (type pdf)
+File: Homework5.pdf Graphic file (type pdf)
 
-<use Homework4.pdf, page 1>
-Package pdftex.def Info: Homework4.pdf, page1 used on input line 97.
+<use Homework5.pdf, page 1>
+Package pdftex.def Info: Homework5.pdf, page1 used on input line 97.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
-File: Homework4.pdf Graphic file (type pdf)
- <use Homework4.pdf, page 1>
-Package pdftex.def Info: Homework4.pdf, page1 used on input line 97.
+File: Homework5.pdf Graphic file (type pdf)
+ <use Homework5.pdf, page 1>
+Package pdftex.def Info: Homework5.pdf, page1 used on input line 97.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
-File: Homework4.pdf Graphic file (type pdf)
+File: Homework5.pdf Graphic file (type pdf)
 
-<use Homework4.pdf, page 1>
-Package pdftex.def Info: Homework4.pdf, page1 used on input line 97.
+<use Homework5.pdf, page 1>
+Package pdftex.def Info: Homework5.pdf, page1 used on input line 97.
 (pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
  [2
 
- <./Homework4.pdf>]
+ <./Homework5.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 99--100
 
  []
@@ -504,386 +504,136 @@ Underfull \hbox (badness 10000) in paragraph at lines 99--100
 
  []
 
-<prob1.pdf, id=61, 578.16pt x 433.62pt>
-File: prob1.pdf Graphic file (type pdf)
- <use prob1.pdf>
-Package pdftex.def Info: prob1.pdf used on input line 136.
-(pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+<decays.pdf, id=43, 614.295pt x 794.97pt>
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf>
+Package pdftex.def Info: decays.pdf used on input line 105.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf>
+Package pdftex.def Info: decays.pdf used on input line 105.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: decays.pdf Graphic file (type pdf)
 
-<diff.pdf, id=62, 487.09634pt x 382.86789pt>
-File: diff.pdf Graphic file (type pdf)
- <use diff.pdf>
-Package pdftex.def Info: diff.pdf used on input line 142.
-(pdftex.def)             Requested size: 234.8775pt x 184.61575pt.
+<use decays.pdf>
+Package pdftex.def Info: decays.pdf used on input line 105.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+ [3] <decays.pdf, id=52, page=12, 614.295pt x 794.97pt>
+File: decays.pdf Graphic file (type pdf)
 
+<use decays.pdf, page 12>
+Package pdftex.def Info: decays.pdf, page12 used on input line 105.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf, page 12>
+Package pdftex.def Info: decays.pdf, page12 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf, page 12>
+Package pdftex.def Info: decays.pdf, page12 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: decays.pdf Graphic file (type pdf)
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+<use decays.pdf, page 12>
+Package pdftex.def Info: decays.pdf, page12 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf, page 12>
+Package pdftex.def Info: decays.pdf, page12 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+ [4 <./decays.pdf>]
+<decays.pdf, id=82, page=13, 614.295pt x 794.97pt>
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf, page 13>
+Package pdftex.def Info: decays.pdf, page13 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: decays.pdf Graphic file (type pdf)
 
-[3 <./prob1.pdf>] [4 <./diff.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
-
- []
-
-<err.pdf, id=136, 512.9429pt x 384.05984pt>
-File: err.pdf Graphic file (type pdf)
- <use err.pdf>
-Package pdftex.def Info: err.pdf used on input line 184.
-(pdftex.def)             Requested size: 234.8775pt x 175.86095pt.
- [5
-
- <./err.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
-
- []
-
-
-LaTeX Warning: Reference `reed1' on page 6 undefined on input line 196.
-
-<reed.pdf, id=175, 490.90746pt x 382.86789pt>
-File: reed.pdf Graphic file (type pdf)
- <use reed.pdf>
-Package pdftex.def Info: reed.pdf used on input line 227.
-(pdftex.def)             Requested size: 234.8775pt x 183.18443pt.
-
-<err_reedx.pdf, id=176, 522.75299pt x 403.13109pt>
-File: err_reedx.pdf Graphic file (type pdf)
- <use err_reedx.pdf>
-Package pdftex.def Info: err_reedx.pdf used on input line 232.
-(pdftex.def)             Requested size: 234.8775pt x 181.1305pt.
-
-<err_reedmu.pdf, id=177, 522.75299pt x 405.515pt>
-File: err_reedmu.pdf Graphic file (type pdf)
- <use err_reedmu.pdf>
-Package pdftex.def Info: err_reedmu.pdf used on input line 237.
-(pdftex.def)             Requested size: 234.8775pt x 182.20161pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+<use decays.pdf, page 13>
+Package pdftex.def Info: decays.pdf, page13 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+File: decays.pdf Graphic file (type pdf)
+ <use decays.pdf, page 13>
+Package pdftex.def Info: decays.pdf, page13 used on input line 105.
+(pdftex.def)             Requested size: 614.58406pt x 795.3441pt.
+ [5 <./decays.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+ []
+
+<p1.pdf, id=91, 523.09018pt x 393.72093pt>
+File: p1.pdf Graphic file (type pdf)
+ <use p1.pdf>
+Package pdftex.def Info: p1.pdf used on input line 144.
+(pdftex.def)             Requested size: 234.8775pt x 176.78828pt.
+
+<p2.pdf, id=92, 523.09018pt x 401.24907pt>
+File: p2.pdf Graphic file (type pdf)
+ <use p2.pdf>
+Package pdftex.def Info: p2.pdf used on input line 148.
+(pdftex.def)             Requested size: 234.8775pt x 180.16856pt.
+
+<p3.pdf, id=93, 523.09018pt x 401.24907pt>
+File: p3.pdf Graphic file (type pdf)
+ <use p3.pdf>
+Package pdftex.def Info: p3.pdf used on input line 152.
+(pdftex.def)             Requested size: 234.8775pt x 180.16856pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--158
 
  []
 
 [6
 
- <./reed.pdf>] [7 <./err_reedx.pdf> <./err_reedmu.pdf
+] [7 <./p1.pdf> <./p2.pdf
 
-pdfTeX warning: pdflatex (file ./err_reedmu.pdf): PDF inclusion: multiple pdfs 
-with page group included in a single page
->] <time_dep_steps.pdf, id=278, 519.43591pt x 399.93164pt>
-File: time_dep_steps.pdf Graphic file (type pdf)
+pdfTeX warning: pdflatex (file ./p2.pdf): PDF inclusion: multiple pdfs with pag
+e group included in a single page
+> <./p3.pdf
 
-<use time_dep_steps.pdf>
-Package pdftex.def Info: time_dep_steps.pdf used on input line 282.
-(pdftex.def)             Requested size: 234.8775pt x 180.84021pt.
-
-<time_dep_angles.pdf, id=279, 492.99336pt x 382.86789pt>
-File: time_dep_angles.pdf Graphic file (type pdf)
-
-<use time_dep_angles.pdf>
-Package pdftex.def Info: time_dep_angles.pdf used on input line 288.
-(pdftex.def)             Requested size: 234.8775pt x 182.40744pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[8 <./time_dep_steps.pdf>] [9 <./time_dep_angles.pdf>] (./SnSlab.py
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 24.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 24.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 30.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+pdfTeX warning: pdflatex (file ./p3.pdf): PDF inclusion: multiple pdfs with pag
+e group included in a single page
+>] (./exp.py
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 35.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
-
-Overfull \hbox (24.95593pt too wide) in paragraph at lines 30--31
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][] 
- []
-
-
-Overfull \hbox (24.95593pt too wide) in paragraph at lines 36--37
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][] 
- []
-
-[10
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 35.
+ [8
 
 ]
-Overfull \hbox (157.55887pt too wide) in paragraph at lines 71--72
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (50.4565pt too wide) in paragraph at lines 114--115
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-] 
- []
-
-
-Overfull \hbox (55.55661pt too wide) in paragraph at lines 125--127
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][] 
- []
-
-
-Overfull \hbox (183.05943pt too wide) in paragraph at lines 133--134
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][] 
- []
-
-[11]
-Overfull \hbox (60.65672pt too wide) in paragraph at lines 174--175
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][] 
- []
-
-
-Overfull \hbox (254.46101pt too wide) in paragraph at lines 182--184
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (121.85808pt too wide) in paragraph at lines 186--187
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][] 
- []
-
-[12]
-Overfull \hbox (4.55548pt too wide) in paragraph at lines 244--245
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[13] [14] [15]
-Overfull \hbox (177.95932pt too wide) in paragraph at lines 413--414
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (50.4565pt too wide) in paragraph at lines 414--415
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][] 
- []
-
-
-Overfull \hbox (208.56pt too wide) in paragraph at lines 444--445
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][] 
- []
-
-
-Overfull \hbox (218.76022pt too wide) in paragraph at lines 445--446
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[] 
- []
-
-
-Overfull \hbox (91.2574pt too wide) in paragraph at lines 468--469
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][] 
- []
-
-[16]
-Overfull \hbox (213.66011pt too wide) in paragraph at lines 485--486
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (223.86034pt too wide) in paragraph at lines 497--498
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (223.86034pt too wide) in paragraph at lines 508--509
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][] 
- []
-
-
-Overfull \hbox (213.66011pt too wide) in paragraph at lines 538--539
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (203.45988pt too wide) in paragraph at lines 539--540
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (264.66124pt too wide) in paragraph at lines 540--541
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][] 
- []
-
-[17] [18]
-Overfull \hbox (86.15729pt too wide) in paragraph at lines 611--612
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (213.66011pt too wide) in paragraph at lines 612--613
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[] 
- []
-
-
-Overfull \hbox (203.45988pt too wide) in paragraph at lines 651--652
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (213.66011pt too wide) in paragraph at lines 652--653
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (249.3609pt too wide) in paragraph at lines 653--654
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (259.56113pt too wide) in paragraph at lines 654--655
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (259.56113pt too wide) in paragraph at lines 655--656
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (264.66124pt too wide) in paragraph at lines 656--657
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][] 
- []
-
-[19]
-Overfull \hbox (218.76022pt too wide) in paragraph at lines 684--685
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (228.96045pt too wide) in paragraph at lines 685--686
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][] 
- []
-
-) [20] (./hw4.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[9] [10]) [11] (./hw5.aux) ) 
 Here is how much of TeX's memory you used:
- 7892 strings out of 493304
- 116097 string characters out of 6139871
- 257072 words of memory out of 5000000
- 11200 multiletter control sequences out of 15000+600000
- 12135 words of font info for 48 fonts, out of 8000000 for 9000
+ 7797 strings out of 493304
+ 114735 string characters out of 6139871
+ 240064 words of memory out of 5000000
+ 11111 multiletter control sequences out of 15000+600000
+ 12482 words of font info for 49 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 42i,18n,45p,270b,1628s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/urw/times/utmri8a.pfb>
-Output written on hw4.pdf (20 pages, 504250 bytes).
+ 42i,18n,46p,270b,1594s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
+/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on hw5.pdf (11 pages, 288641 bytes).
 PDF statistics:
- 430 PDF objects out of 1000 (max. 8388607)
- 184 compressed objects within 2 object streams
+ 270 PDF objects out of 1000 (max. 8388607)
+ 119 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
