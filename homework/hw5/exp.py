@@ -61,7 +61,7 @@ for i in ids:
 
 cap = {'li6':['li7',1.106851e-5,1.017352e-5],
        'li7':['li8',4.670126e-6,4.1075e-6],
-       'be9':['be10',1.e-4,1.e-4],
+       'be9':['be10',1.e-6,1.e-6],
        'f19':['f20', 8.641807e-5,3.495e-5]         }
 
 n2n = {'li7':['li6',0.0,0.03174],
@@ -219,7 +219,8 @@ plt.savefig('p3.pdf',bbox_inches='tight')
 
 
 #Compute activities
-n = conc_be[-1,:]
+n0 = conc_be[-1,:].copy()
+n  = n0.copy()
 
 #Rebuild A with no flux
 A = np.zeros((len(ids),len(ids)))
@@ -238,12 +239,15 @@ for i in ids:
                 A[pos[t],row] += decays[i][1+j] #A[target,src] = decay
 
 #Use BE to advance in time the concentrations
-dt = 0.0000
+dt = 1
 t = 0.
 conc_decay  = []
 times = []
 Na = 6.0221E23
 
+#Convert n to Atom densities
+n0*= Na/A_flibe*1000
+n *= Na/A_flibe*1000
 decay_const = {}
 for i in ids:
     if i in decays:
@@ -254,40 +258,50 @@ for i in ids:
 while True:
 
     t+=dt
-#    I = sparse.identity(len(n0))
-#    n = splinalg.gmres(I - A*dt, n,tol=1e-12)[0]
 
 
     for N in Npoints:
-        pos1 = 0
-        theta = np.pi*np.arange(1,N,2)/N
-        z = N*(.1309 - 0.1194*theta**2 + .2500j*theta)
-        w = N*(- 2*0.1194*theta + .2500j)
-        c = 1.0j/N*np.exp(z)*w
-        #plt.plot(np.real(z),np.imag(z),'o-')
-        #plt.show()
-        u = np.zeros(len(n))
-        for k in range(int(N/2)):
-            n,code = splinalg.gmres(z[k]*sparse.identity(len(n))  - A*t,n0, tol=1e-12,
-                    maxiter=20000)
-            if (code):
-                print(code)
-            u -= c[k]*n
-        u = 2*np.real(u)
+         pos1 = 0
+         theta = np.pi*np.arange(1,N,2)/N
+         z = N*(.1309 - 0.1194*theta**2 + .2500j*theta)
+         w = N*(- 2*0.1194*theta + .2500j)
+         c = 1.0j/N*np.exp(z)*w
+         #plt.plot(np.real(z),np.imag(z),'o-')
+         #plt.show()
+         u = np.zeros(len(n))
+         for k in range(int(N/2)):
+             n,code = splinalg.gmres(z[k]*sparse.identity(len(n))  - A*t,n0, tol=1e-12,
+                     maxiter=20000)
+             if (code):
+                 print(code)
+             u -= c[k]*n
+         u = 2*np.real(u)
     n = u.copy()
+    #print([n[pos[i]]*np.exp(-1.*decay_const[i]*t
 
 
-    activity_v = [n[pos[i]]*Na/A_flibe*1000*decay_const[i] for i in ids]
+    activity_v = [n[pos[i]]*decay_const[i] for i in ids]
     activity = sum(activity_v)
-    print(activity_v)
-    print(n)
-    input()
+#    print("Activity",activity_v)
+#    print("N",n)
+#    print("total",activity)
+
+    activity_new_v = [n0[pos[i]]*decay_const[i]*np.exp(-1.*decay_const[i]*t/stoa) for i in ids]
+    N_new = [n0[pos[i]]*np.exp(-1.*decay_const[i]*t/stoa) for i in ids]
+    activity_new = sum(activity_new_v)
+    print("Activity",activity_new_v)
+    print("Nuces",N_new)
+    print("pos",pos)
+#    print("N",[n0[pos[i]]*np.exp(-1.*decay_const[i]*t) for i in ids])
+#    print("Decays",[activity_new_v[i]/n[i] for i in range(len(n))])
+#    print("total",activity_new)
+##    input()
     
     times.append(t)
     conc_decay.append(activity)
-    print("Current activity: ",activity, "time: ",t)
+    print("Current activity: ",activity,activity_new ,"time: ",t)
 
-    if activity < 444 or t > 10000:
+    if activity < 444 and activity_new < 444 or t > 10000000:
         break
 
 
