@@ -136,8 +136,8 @@ document are given below.
     with at least two digits of accuracy.  All tritium (h1) and $\alpha$ (he4)
     production are tracked as well. The plots of isotopic atom fractions are given
     below.  The mass of tritium per initial kg of FLiBe after two years of
-    irradiation is computed by dividing the atom fraction by the ratio of atomic
-    masses; this ratio was found to be \boxed{0.017\text{ kg of tritium per initial kg of
+    irradiation is computed by multiplying the atom fraction by the ratio of atomic
+    masses; this ratio was found to be \boxed{1.04\times10^{-04}\text{ kg of tritium per initial kg of
     FLiBe}}.
     \begin{figure}
         \centering
@@ -154,13 +154,26 @@ document are given below.
 \end{solnum}
 
 \begin{solnum}{1-3}
-    The activity, per unit mass of FLiBe, uted as
+    The activity, per unit mass of FLiBe, is computed as
     \begin{equation}
-        A(t) = \sum_{j=1}^N \frac{\gamma_j(t)N_A}{\mathcal{A_{FLiBe}}}\lambda_j
+        A(t) = 7\sum_{j=1}^N \frac{\gamma_j(t)N_A}{\mathcal{A}_\text{FLiBe}}\lambda_j
     \end{equation}
-    where $\gamma_j$ is the atom fraction for the $j$-th of $N$ isotopes. The flux is set to zero and the matrix exponential method is used to
-    track the activity after the source of neutorns is removed until it is below the threshold of 444 Bq.
-
+    where $\gamma_j(t)$ is the atom fraction for the $j$-th of $N$ isotopes at time
+    $t$ after irradiation stops. The matrix
+    exponential and backward Euler were found to be numerically inaccurate for computing the new
+    activities of isotopes, resulting in negative answers, due to the large range of
+    decay constants relative to the time scale.  Instead, the
+    atom fractions were computed ignoring secondary decay chains as
+    \begin{equation}
+        \gamma_j(t) = \gamma_j(t_0)e^{-\lambda_j t}
+    \end{equation}
+    where $\gamma_j(t_0)$ is the atom fractions after irradiation stops at 2 years.
+    The factor of 7 is because my atom fractions are normalized to be atom of isotope
+    $j$ per any atom in the system, rather than per mol (which would not sum to 1).  With this
+    approach, it was found it will take \boxed{395\times 10^3\text{ years}} before the activity is below the threshold of 444 Bq/kg.
+    This is completely dominated by the slow decay of $^{10}$Be, although the
+    majority of the radioactivity is removed within 100 years once the tritium has
+    decayed away.
 \end{solnum}
 
 \clearpage

@@ -29,9 +29,8 @@ c = [ -0.278754565727894 - 1.021482174078080j,
 # In[84]:
 
 #cross-sections in barns
-ids = ['h1','h3','he3','he4','he6','li6','li7','li8','li9',
-            'be9','be10','b10','f19','f20','ne20','f19','f18',
-            'o16','n16','n17','o19','o18']
+ids = ['h3','he3','he4','he6','li6','li7','li8','li9',
+            'be9','be10','b10','n16','n17','o16','o18','o19','f18','f19','f20','ne20','h1']
 pos = {}
 for i in range(len(ids)):
     pos[ids[i]]=i
@@ -49,7 +48,7 @@ siga = {'h1':[0.0,0.0],
         'li8':[0.0,0.0],
         'li9':[0.0,0.0],
         'be9':[2.510747-2.401078,1.52753-1.10746],
-        'be10':[0.0,0.0],
+        'be10':[1.0e-5,1.0e-5],
         'b10':[2.05-1.6767,1.4676-0.907458],
         'f19':[3.040797-2.134332,1.76351-0.9528]
         }
@@ -123,9 +122,10 @@ for i in ids:
             target = decays[i][0+j].split("-") #if goes to two things, hyphen
             for t in target:
                 A[pos[t],row] += decays[i][1+j] #A[target,src] = decay
-
-
-
+    
+plt.spy(A)
+print([pos[i] for i in ids])
+plt.show(block=True)
 
 #Initial condition
 n0 = np.zeros(len(ids))
@@ -188,8 +188,8 @@ plot2 = ['f19','ne20','o16','f18','n16']
 plot3 = ['li8','b10','o16','o18','he6','f20','n17','o19']
 
 A_trit = 3.0160492
-A_flibe = 18.99*4 + 6.94 * 2 + 9.01
-print("Mass ratio of tritium", conc_exp[-1,pos['h3']]*A_flibe/A_trit)
+A_flibe = 18.99*4 + 6.94 * 2 + 9.01 
+print("Mass ratio of tritium", conc_exp[-1,pos['h3']]*7*A_trit/A_flibe)
 
 #Plot concentrations
 
@@ -239,15 +239,15 @@ for i in ids:
                 A[pos[t],row] += decays[i][1+j] #A[target,src] = decay
 
 #Use BE to advance in time the concentrations
-dt = 1
+dt = 100
 t = 0.
 conc_decay  = []
 times = []
 Na = 6.0221E23
 
 #Convert n to Atom densities
-n0*= Na/A_flibe*1000
-n *= Na/A_flibe*1000
+n0 *= Na/A_flibe*1000*7
+n  *= Na/A_flibe*1000*7
 decay_const = {}
 for i in ids:
     if i in decays:
@@ -257,51 +257,26 @@ for i in ids:
 
 while True:
 
-    t+=dt
+    t += dt
 
-
-    for N in Npoints:
-         pos1 = 0
-         theta = np.pi*np.arange(1,N,2)/N
-         z = N*(.1309 - 0.1194*theta**2 + .2500j*theta)
-         w = N*(- 2*0.1194*theta + .2500j)
-         c = 1.0j/N*np.exp(z)*w
-         #plt.plot(np.real(z),np.imag(z),'o-')
-         #plt.show()
-         u = np.zeros(len(n))
-         for k in range(int(N/2)):
-             n,code = splinalg.gmres(z[k]*sparse.identity(len(n))  - A*t,n0, tol=1e-12,
-                     maxiter=20000)
-             if (code):
-                 print(code)
-             u -= c[k]*n
-         u = 2*np.real(u)
-    n = u.copy()
-    #print([n[pos[i]]*np.exp(-1.*decay_const[i]*t
-
-
-    activity_v = [n[pos[i]]*decay_const[i] for i in ids]
-    activity = sum(activity_v)
-#    print("Activity",activity_v)
-#    print("N",n)
-#    print("total",activity)
-
+    #Compute based on exponential decay
     activity_new_v = [n0[pos[i]]*decay_const[i]*np.exp(-1.*decay_const[i]*t/stoa) for i in ids]
     N_new = [n0[pos[i]]*np.exp(-1.*decay_const[i]*t/stoa) for i in ids]
     activity_new = sum(activity_new_v)
-    print("Activity",activity_new_v)
-    print("Nuces",N_new)
-    print("pos",pos)
+#    print("Activity",activity_new_v)
+#    print("Nuces",N_new)
+#    print("pos",pos)
 #    print("N",[n0[pos[i]]*np.exp(-1.*decay_const[i]*t) for i in ids])
 #    print("Decays",[activity_new_v[i]/n[i] for i in range(len(n))])
 #    print("total",activity_new)
 ##    input()
     
     times.append(t)
-    conc_decay.append(activity)
-    print("Current activity: ",activity,activity_new ,"time: ",t)
+    conc_decay.append(activity_new)
+    print(activity_new_v[pos['h3']],activity_new_v[pos['be10']])
+    print("Current activity: ",activity_new ,"time: ",t)
 
-    if activity < 444 and activity_new < 444 or t > 10000000:
+    if activity_new < 444 or t > 10000000:
         break
 
 
